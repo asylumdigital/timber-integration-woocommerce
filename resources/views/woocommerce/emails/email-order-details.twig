@@ -1,0 +1,84 @@
+{##
+ # Order details table shown in emails.
+ #
+ # This template can be overridden by copying it to yourtheme/woocommerce/emails/email-order-details.php.
+ #
+ # HOWEVER, on occasion WooCommerce will need to update template files and you
+ # (the theme developer) will need to copy the new files to your theme to
+ # maintain compatibility. We try to do this as little as possible, but it does
+ # happen. When this occurs the version of the template file will be bumped and
+ # the readme will list any important changes.
+ #
+ # @see https://docs.woocommerce.com/document/template-structure/
+ # @package WooCommerce\Templates\Emails
+ # @version 3.7.0
+ #}
+
+
+
+{% set text_align = fn('is_rtl') ? 'right' : 'left' %}
+
+{% do action('woocommerce_email_before_order_table', wc.order, wc.sent_to_admin, wc.plain_text, wc.email ) %}
+
+<h2>
+
+	{% if wc.sent_to_admin %}
+	    {% set before = '<a class="link" href="%s">'|format(wc.order.get_edit_order_url()|e('esc_url')) %}
+	    {% set after  = '</a>' %}
+	{% else %}
+
+	    {% set before = '' %}
+	    {% set after  = '' %}
+	{% endif %}
+
+    {# translators: %s: Order ID. #}
+    {{ before }}{{ __( '[Order #%s]', 'woocommerce' )|format(wc.order.get_order_number())|wp_kses_post }}{{ after }} {{ '(<time datetime="%s">%s</time>)'|format(wc.order.get_date_created().format('c'), fn('wc_format_datetime', wc.order.get_date_created()) )}}
+</h2>
+
+<div style="margin-bottom: 40px;">
+	<table class="td" cellspacing="0" cellpadding="6" style="width: 100%; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;" border="1">
+		<thead>
+			<tr>
+				<th class="td" scope="col" style="text-align:{{ text_align|e('html_attr' ) }};">{{ __( 'Product', 'woocommerce' )|e }}</th>
+				<th class="td" scope="col" style="text-align:{{ text_align|e('html_attr' ) }};">{{ __( 'Quantity', 'woocommerce' )|e }}</th>
+				<th class="td" scope="col" style="text-align:{{ text_align|e('html_attr' ) }};">{{ __( 'Price', 'woocommerce' )|e }}</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			{{ fn('wc_get_email_order_items',
+				wc.order,
+				{
+					'show_sku'      : wc.sent_to_admin,
+					'show_image'    : false,
+					'image_size'    : [32, 32],
+					'plain_text'    : wc.plain_text,
+					'sent_to_admin' : wc.sent_to_admin,
+                }
+			) }}
+
+		</tbody>
+		<tfoot>
+
+			{% set item_totals = wc.order.get_order_item_totals() %}
+
+			{% if item_totals %}
+
+				{% for total in item_totals %}
+					<tr>
+						<th class="td" scope="row" colspan="2" style="text-align:{{ text_align|e('html_attr') }}; {{ 1 == loop.index ? 'border-top-width: 4px;' : '' }}">{{ total.label|wp_kses_post }}</th>
+						<td class="td" style="text-align:{{ text_align|e('html_attr') }}; {{ 1 == loop.index ? 'border-top-width: 4px;' : '' }}">{{ total.value|wp_kses_post }}</td>
+					</tr>
+				{% endfor %}
+			{% endif %}
+			{% if wc.order.get_customer_note() %}
+				<tr>
+					<th class="td" scope="row" colspan="2" style="text-align:{{ text_align|e('html_attr' ) }};">{{ __('Note:', 'woocommerce' )|e }}</th>
+					<td class="td" style="text-align:{{ text_align|e('html_attr' ) }};">{{ wc.order.get_customer_note()|wptexturize|nl2br|wp_kses_post }}</td>
+				</tr>
+			{% endif %}
+		</tfoot>
+	</table>
+</div>
+
+{% do action('woocommerce_email_after_order_table', wc.order, wc.sent_to_admin, wc.plain_text, wc.email) %}

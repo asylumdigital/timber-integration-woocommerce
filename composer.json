@@ -1,0 +1,44 @@
+{
+    "name": "asylum/timber-integration-woocommerce",
+    "type": "library",
+    "description": "WooCommerce integration for Timber.",
+    "keywords": [
+        "timber",
+        "twig",
+        "integration",
+        "woocommerce"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Phil Baker",
+            "homepage": "https://asylum.digital"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/mindkomm/timber-integration-woocommerce/issues",
+        "source": "https://github.com/mindkomm/timber-integration-woocommerce",
+        "docs": "https://timber.github.io/docs/integrations/woocommerce"
+    },
+    "require": {
+        "php": "^7.4 || ^8.0",
+        "timber/timber": "^2.0.0-rc.1"
+    },
+    "autoload": {
+        "files": [
+            "src/Files/Loader.php"
+        ],
+        "psr-4": {
+            "Timber\\Integration\\Woocommerce\\": "src/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    },
+    "require-dev": {
+        "php-stubs/woocommerce-stubs": "^8.2",
+        "symfony/var-dumper": "^6.3"
+    }
+}

@@ -1,0 +1,52 @@
+{##
+ # Order details table shown in emails.
+ #
+ # This template can be overridden by copying it to yourtheme/woocommerce/emails/plain/email-order-details.php.
+ #
+ # HOWEVER, on occasion WooCommerce will need to update template files and you
+ # (the theme developer) will need to copy the new files to your theme to
+ # maintain compatibility. We try to do this as little as possible, but it does
+ # happen. When this occurs the version of the template file will be bumped and
+ # the readme will list any important changes.
+ #
+ # @see https://docs.woocommerce.com/document/template-structure/
+ # @package WooCommerce\Templates\Emails
+ # @version 3.7.0
+ #}
+
+
+{% do action('woocommerce_email_before_order_table', wc.order, wc.sent_to_admin, wc.plain_text, wc.email ) %}
+
+{# translators: %1$s: Order ID. %2$s: Order date #}
+{{ __( '[Order #%1$s] (%2$s)', 'woocommerce' )|e|format(wc.order.get_order_number(), fn('wc_format_datetime', wc.order.get_date_created()))|upper|wp_kses_post }}
+{{ fn('wc_get_email_order_items',
+	wc.order,
+	{
+		'show_sku'      : wc.sent_to_admin,
+		'show_image'    : false,
+		'image_size'    : [32, 32],
+		'plain_text'    : true,
+		'sent_to_admin' : wc.sent_to_admin,
+    }
+)}}
+
+==========
+
+{% set item_totals = wc.order.get_order_item_totals() %}
+
+{% if item_totals %}
+	{% for total in item_totals %}
+        {{ total.label ~ "\t"|wp_kses_post }} {{ total.value|wp_kses_post }}
+	{% endfor %}
+{% endif %}
+
+{% if wc.order.get_customer_note() %}
+	echo esc_html__( 'Note:', 'woocommerce' ) . "\t " . wp_kses_post( wptexturize( $order->get_customer_note() ) ) . "\n";
+{% endif %}
+
+{% if wc.sent_to_admin %}
+	{# translators: %s: Order link. #}
+	{{ __( 'View order: %s', 'woocommerce' )|format(wc.order.get_edit_order_url()|e('esc_url'))|e }}
+{% endif %}
+
+{% do action('woocommerce_email_after_order_table', wc.order, wc.sent_to_admin, wc.plain_text, wc.email ) %}

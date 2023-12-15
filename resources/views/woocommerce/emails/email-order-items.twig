@@ -1,0 +1,91 @@
+{##
+ # Email Order Items
+ #
+ # This template can be overridden by copying it to yourtheme/woocommerce/emails/email-order-items.php.
+ #
+ # HOWEVER, on occasion WooCommerce will need to update template files and you
+ # (the theme developer) will need to copy the new files to your theme to
+ # maintain compatibility. We try to do this as little as possible, but it does
+ # happen. When this occurs the version of the template file will be bumped and
+ # the readme will list any important changes.
+ #
+ # @see     https://docs.woocommerce.com/document/template-structure/
+ # @package WooCommerce\Templates\Emails
+ # @version 3.7.0
+ #}
+
+
+{% set text_align = fn('is_rtl') ? 'right' : 'left' %}
+{% set margin_side = fn('is_rtl') ? 'left' : 'right' %}
+
+{% for item_id,item in wc.items %}
+	{% set product       = item.get_product() %}
+	{% set sku           = '' %}
+	{% set purchase_note = '' %}
+	{% set image         = '' %}
+
+	{% if true|apply_filters( 'woocommerce_order_item_visible', item ) %}
+
+
+        {% if fn('is_object', product) %}
+            {% set sku           = product.get_sku() %}
+            {% set purchase_note = product.get_purchase_note() %}
+            {% set image         = product.get_image(wc.image_size) %}
+        {% endif %}
+
+        <tr class="{{ 'order_item'|apply_filters('woocommerce_order_item_class', item, wc.order)|e('html_attr') }}">
+            <td class="td" style="text-align: {{ text_align|e('html_attr') }}; vertical-align: middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; word-wrap:break-word;">
+                {# Show title/image etc. #}
+                {% if wc.show_image %}
+                    {{ image|apply_filters('woocommerce_order_item_thumbnail', item)|wp_kses_post }}
+                {% endif %}
+
+                {# Product name. #}
+                {{ item.get_name()|apply_filters( 'woocommerce_order_item_name', item, false)|wp_kses_post }}
+
+                {# SKU. #}
+                {% if wc.show_sku and sku %}
+                    (# {{ sku|wp_kses_post }})
+                {% endif %}
+
+                {# allow other plugins to add additional product information here. #}
+                {% do action( 'woocommerce_order_item_meta_start', item_id, item, wc.order, wc.plain_text ) %}
+
+                {% do fn('wc_display_item_meta',
+                    item,
+                    {
+                        'label_before' : '<strong class="wc-item-meta-label" style="float: %s; margin-%s: .25em; clear: both">'|format(text_align|e('html_attr'), margin_side|e('html_attr')),
+                    }
+                ) %}
+
+                {# allow other plugins to add additional product information here. #}
+                {% do action( 'woocommerce_order_item_meta_end', item_id, item, wc.order, wc.plain_text ) %}
+            </td>
+            <td class="td" style="text-align:{{ text_align|e('html_attr' ) }}; vertical-align:middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;">
+                {% set qty          = item.get_quantity() %}
+                {% set refunded_qty = wc.order.get_qty_refunded_for_item(item_id) %}
+
+                {% if refunded_qty %}
+                    {% set qty_display = '<del>%s</del> <ins>%s</ins>'|format(qty|e, qty - (refunded_qty * -1)) %}
+                {% else %}
+
+                    {% set qty_display = qty|e %}
+                {% endif %}
+
+                {{ qty_display|apply_filters('woocommerce_email_order_item_quantity', item) }}
+            </td>
+            <td class="td" style="text-align:{{ text_align|e('html_attr' ) }}; vertical-align:middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;">
+                {{ wc.order.get_formatted_line_subtotal(item)|wp_kses_post }}
+            </td>
+        </tr>
+        {% if wc.show_purchase_note and purchase_note %}
+            ?
+            <tr>
+                <td colspan="3" style="text-align:{{ text_align|e('html_attr' ) }}; vertical-align:middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;">
+                    {{ fn('do_shortcode', purchase_note)|wpautop|wp_kses_post }}
+                </td>
+            </tr>
+        {% endif %}
+    {% endif %}
+
+{% endfor %}

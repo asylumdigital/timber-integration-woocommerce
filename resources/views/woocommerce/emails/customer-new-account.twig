@@ -1,0 +1,36 @@
+{##
+ # Customer new account email
+ #
+ # This template can be overridden by copying it to yourtheme/woocommerce/emails/customer-new-account.php.
+ #
+ # HOWEVER, on occasion WooCommerce will need to update template files and you
+ # (the theme developer) will need to copy the new files to your theme to
+ # maintain compatibility. We try to do this as little as possible, but it does
+ # happen. When this occurs the version of the template file will be bumped and
+ # the readme will list any important changes.
+ #
+ # @see https://docs.woocommerce.com/document/template-structure/
+ # @package WooCommerce\Templates\Emails
+ # @version 6.0.0
+ #}
+
+
+{% do action( 'woocommerce_email_header', wc.email_heading, wc.email ) %}
+
+{# translators: %s: Customer username #}
+<p>{{ __( 'Hi %s,', 'woocommerce' )|format(wc.user_login) }}</p>
+{# translators: %1$s: Site title, %2$s: Username, %3$s: My account link #}
+<p>{{ __( 'Thanks for creating an account on %1$s. Your username is %2$s. You can access your account area to view orders, change your password, and more at: %3$s', 'woocommerce' )|e|format(wc.blogname|e, '<strong>' ~ wc.user_login|e ~ '</strong>', fn('make_clickable', fn('wc_get_page_permalink', 'myaccount' )|e('esc_url') ) ) }}</p>
+{% if 'yes' == fn('get_option', 'woocommerce_registration_generate_password' ) and wc.password_generated and wc.set_password_url %}
+	{# If the password has not been set by the user during the sign up process, send them a link to set a new password #}
+	<p><a href="{{ wc.set_password_url|e('html_attr') }}">{{ __( 'Click here to set your new password.', 'woocommerce' ) }}</a></p>
+{% endif %}
+
+{##
+ # Show user-defined additional content - this is set in each email's settings.
+ #}
+{% if wc.additional_content %}
+    {{ wc.additional_content|wptexturize|wpautop|wp_kses_post }}
+{% endif %}
+
+{% do action('woocommerce_email_footer', wc.email) %}

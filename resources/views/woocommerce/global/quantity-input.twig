@@ -1,0 +1,57 @@
+{##
+ # Product quantity inputs
+ #
+ # This template can be overridden by copying it to yourtheme/woocommerce/global/quantity-input.php.
+ #
+ # HOWEVER, on occasion WooCommerce will need to update template files and you
+ # (the theme developer) will need to copy the new files to your theme to
+ # maintain compatibility. We try to do this as little as possible, but it does
+ # happen. When this occurs the version of the template file will be bumped and
+ # the readme will list any important changes.
+ #
+ # @see     https://docs.woocommerce.com/document/template-structure/
+ # @package WooCommerce\Templates
+ # @version 7.4.0
+ #
+ # @var bool   $readonly If the input should be set to readonly mode.
+ # @var string $type     The input type attribute.
+ #}
+
+
+{# translators: %s: Quantity. #}
+{% set label = wc.product_name is not empty ? __( '%s quantity', 'woocommerce' )|format(wc.product_name)|e : __( 'Quantity', 'woocommerce' )|e %}
+
+<div class="quantity">
+
+	{##
+	 # Hook to output something before the quantity input field.
+	 #
+	 # @since 7.2.0
+	 #}
+	{% do action('woocommerce_before_quantity_input_field') %}
+	<label class="screen-reader-text" for="{{ wc.input_id|e('html_attr') }}">{{ label|e('html_attr') }}</label>
+	<input
+		type="{{ wc.type|e('html_attr') }}"
+		{{ wc.readonly ? 'readonly="readonly"' }}
+		id="{{ wc.input_id|e('esc_html') }}"
+		class="{{ wc.classes|join(' ')|e('html_attr') }}"
+		name="{{ wc.input_name|e('html_attr') }}"
+		value="{{ wc.input_value|e('html_attr') }}"
+		title="{{ _x( 'Qty', 'Product quantity input tooltip', 'woocommerce' ) }}"
+		size="4"
+		min="{{ wc.min_value|e('html_attr') }}"
+		max="{{ 0 < wc.max_value ? wc.max_value|e('html_attr') }}"
+		{% if not wc.readonly %}
+			step="{{ wc.step|e('html_attr') }}"
+			placeholder="{{ wc.placeholder|e('html_attr') }}"
+			inputmode="{{ wc.inputmode|e('html_attr') }}"
+			autocomplete="{{ wc.autocomplete ? wc.autocomplete|e('html_attr') : 'on' }}"
+		{% endif %}
+	/>
+	{#
+	 # Hook to output something after quantity input field
+	 #
+	 # @since 3.6.0
+	 #}
+	{% do action('woocommerce_after_quantity_input_field') %}
+</div>
