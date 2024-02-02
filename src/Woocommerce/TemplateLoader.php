@@ -233,8 +233,11 @@ class TemplateLoader
             $name_decoded = urldecode( $object->post_name );
             if ( $name_decoded !== $object->post_name ) {
                 $templates[] = "single-product-{$name_decoded}.twig";
+                $templates[] = WC()->template_path() . "single-product-{$name_decoded}.twig";
             }
+
             $templates[] = "single-product-{$object->post_name}.twig";
+            $templates[] = WC()->template_path() . "single-product-{$object->post_name}.twig";
         }
 
         if ( is_product_taxonomy() ) {
