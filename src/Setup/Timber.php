@@ -17,10 +17,7 @@ class Timber
         }, 110);
 
         add_filter('timber/post/classmap', function ($classmap) {
-            $classmap = [
-
-                'product' => Product::class,
-            ];
+            $classmap['product'] = Product::class;
 
             return $classmap;
         });
