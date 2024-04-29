@@ -24,7 +24,7 @@ class Timber
 
         add_filter('timber/twig', function($twig) {
 
-            $twig->addFilter(new \Twig\TwigFilter('esc_attr', 'esc_attr'));
+            // $twig->addFilter(new \Twig\TwigFilter('esc_attr', 'esc_attr'));
 
             $twig->addFunction(new \Twig\TwigFunction('callstatic', function ($class, $method, ...$args) {
                 if (!class_exists($class)) {
