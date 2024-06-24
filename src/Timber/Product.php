@@ -32,4 +32,13 @@ class Product extends \Timber\Post
 		return $this;
 	}
 
+    public function get_wc_product()
+    {
+        if (!is_a($this->product, 'WC_Product')) {
+            $this->product = wc_get_product($this->id);
+        }
+
+        return $this->product;
+    }
+
 }
