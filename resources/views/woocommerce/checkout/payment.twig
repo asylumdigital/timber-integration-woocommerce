@@ -1,7 +1,7 @@
 {##
  # Checkout Payment Section
  #
- # This template can be overridden by copying it to yourtheme/woocommerce/checkout/payment.php.
+ # This template can be overridden by copying it to yourtheme/woocommerce/checkout/payment.twig.
  #
  # HOWEVER, on occasion WooCommerce will need to update template files and you
  # (the theme developer) will need to copy the new files to your theme to
@@ -9,9 +9,9 @@
  # happen. When this occurs the version of the template file will be bumped and
  # the readme will list any important changes.
  #
- # @see     https://docs.woocommerce.com/document/template-structure/
+ # @see     https://woocommerce.com/document/template-structure/
  # @package WooCommerce\Templates
- # @version 7.0.1
+ # @version 8.1.0
  #}
 
 {% if not fn('wp_doing_ajax') %}
@@ -27,7 +27,13 @@
 
 			{% else %}
 
-				<li class="woocommerce-notice woocommerce-notice--info woocommerce-info">{{ (customer.get_billing_country() ? __( 'Sorry, it seems that there are no available payment methods for your state. Please contact us if you require assistance or wish to make alternate arrangements.', 'woocommerce' )|e('esc_html') : __( 'Please fill in your details above to see available payment methods.', 'woocommerce' )|e('esc_html'))|apply_filters( 'woocommerce_no_available_payment_methods_message') }} </li>
+				<li>
+                {% do fn(
+                    'wc_print_notice',
+                    (customer.get_billing_country() ? __('Sorry, it seems that there are no available payment methods. Please contact us if you require assistance or wish to make alternate arrangements.', 'woocommerce')|e('esc_html') : __( 'Please fill in your details above to see available payment methods.', 'woocommerce' )|e('esc_html'))|apply_filters( 'woocommerce_no_available_payment_methods_message'),
+                    'notice')
+                %}
+                </li>
 			{% endfor %}
 		</ul>
 	{% endif %}

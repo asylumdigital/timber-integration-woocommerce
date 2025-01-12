@@ -1,7 +1,7 @@
 {##
  # Loop Add to Cart
  #
- # This template can be overridden by copying it to yourtheme/woocommerce/loop/add-to-cart.php.
+ # This template can be overridden by copying it to yourtheme/woocommerce/loop/add-to-cart.twig.
  #
  # HOWEVER, on occasion WooCommerce will need to update template files and you
  # (the theme developer) will need to copy the new files to your theme to
@@ -9,17 +9,24 @@
  # happen. When this occurs the version of the template file will be bumped and
  # the readme will list any important changes.
  #
- # @see         https://docs.woocommerce.com/document/template-structure/
+ # @see         https://woocommerce.com/document/template-structure/
  # @package     WooCommerce\Templates
- # @version     3.3.0
+ # @version     9.2.0
  #}
 
+{% set aria_describedby = wc['aria-describedby_text'] ? 'aria-describedby="woocommerce_loop_add_to_cart_link_describedby_%s"'|format(product.get_id()|e('html_attr')) %}
 
-{{ '<a href="%s" data-quantity="%s" class="%s" %s>%s</a>'|format(
+{{ '<a href="%s" %s data-quantity="%s" class="%s" %s>%s</a>'|format(
     product.add_to_cart_url(),
+    aria_describedby,
     wc.quantity|default(1),
     wc.class|default('button'),
     wc.attributes ? fn('wc_implode_html_attributes', wc.attributes) : '',
     product.add_to_cart_text()
 )|apply_filters('woocommerce_loop_add_to_cart_link', product, wc)}}
 
+{% if wc['aria-describedby_text'] %}
+	<span id="woocommerce_loop_add_to_cart_link_describedby_{{ product.get_id()|e('html_attr') }}" class="screen-reader-text">
+		{{ wc['aria-describedby_text']|e }}
+	</span>
+{% endif %}

@@ -1,7 +1,7 @@
 {##
  # Auth form login
  #
- # This template can be overridden by copying it to yourtheme/woocommerce/auth/form-login.php.
+ # This template can be overridden by copying it to yourtheme/woocommerce/auth/form-login.twig.
  #
  # HOWEVER, on occasion WooCommerce will need to update template files and you
  # (the theme developer) will need to copy the new files to your theme to
@@ -9,9 +9,9 @@
  # happen. When this occurs the version of the template file will be bumped and
  # the readme will list any important changes.
  #
- # @see     https://docs.woocommerce.com/document/template-structure/
+ # @see     https://woocommerce.com/document/template-structure/
  # @package WooCommerce\Templates\Auth
- # @version 7.0.1
+ # @version 9.2.0
  #}
 
 {% do action( 'woocommerce_auth_page_header' ) %}
@@ -32,12 +32,12 @@
 
 <form method="post" class="wc-auth-login">
 	<p class="form-row form-row-wide">
-		<label for="username">{{ __( 'Username or email address', 'woocommerce' )|e }}&nbsp;<span class="required">*</span></label>
-		<input type="text" class="input-text" name="username" id="username" value="{{ request.post.username|e('html_attr') }}" />
+		<label for="username">{{ __( 'Username or email address', 'woocommerce' )|e }}&nbsp;<span class="required" aria-hidden="true">*</span></label>
+		<input type="text" class="input-text" name="username" id="username" value="{{ request.post.username|e('html_attr') }}" required aria-required="true" />
 	</p>
 	<p class="form-row form-row-wide">
-		<label for="password">{{ __( 'Password', 'woocommerce' )|e }}&nbsp;<span class="required">*</span></label>
-		<input class="input-text" type="password" name="password" id="password" />
+		<label for="password">{{ __( 'Password', 'woocommerce' )|e }}&nbsp;<span class="required" aria-hidden="true">*</span></label>
+		<input class="input-text" type="password" name="password" id="password" required aria-required="true" />
 	</p>
 	<p class="wc-auth-actions">
 		{% do fn('wp_nonce_field', 'woocommerce-login', 'woocommerce-login-nonce') %}

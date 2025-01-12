@@ -1,7 +1,7 @@
 {##
  # Order Customer Details
  #
- # This template can be overridden by copying it to yourtheme/woocommerce/order/order-details-customer.php.
+ # This template can be overridden by copying it to yourtheme/woocommerce/order/order-details-customer.twig.
  #
  # HOWEVER, on occasion WooCommerce will need to update template files and you
  # (the theme developer) will need to copy the new files to your theme to
@@ -9,9 +9,9 @@
  # happen. When this occurs the version of the template file will be bumped and
  # the readme will list any important changes.
  #
- # @see     https://docs.woocommerce.com/document/template-structure/
+ # @see     https://woocommerce.com/document/template-structure/
  # @package WooCommerce\Templates
- # @version 5.6.0
+ # @version 8.7.0
  #}
 
 {% set show_shipping = not fn('wc_ship_to_billing_address_only') and wc.order.needs_shipping_address() %}
@@ -37,6 +37,15 @@
 		{% if wc.order.get_billing_email() %}
 			<p class="woocommerce-customer-details--email">{{ wc.order.get_billing_email()|e('esc_html') }}</p>
 		{% endif %}
+
+        {##
+         # Action hook fired after an address in the order customer details.
+         #
+         # @since 8.7.0
+         # @param string $address_type Type of address (billing or shipping).
+         # @param WC_Order $order Order object.
+         #}
+        {% do action('woocommerce_order_details_after_customer_address', 'billing', wc.order) %}
 	</address>
 
 	{% if show_shipping %}
@@ -51,6 +60,16 @@
 				{% if wc.order.get_shipping_phone() %}
 					<p class="woocommerce-customer-details--phone">{{ wc.order.get_shipping_phone()|e('esc_html') }}</p>
 				{% endif %}
+
+
+                {##
+                 # Action hook fired after an address in the order customer details.
+                 #
+                 # @since 8.7.0
+                 # @param string $address_type Type of address (billing or shipping).
+                 # @param WC_Order $order Order object.
+                 #}
+                {% do action('woocommerce_order_details_after_customer_address', 'shipping', wc.order) %}
 			</address>
 		</div><!-- /.col-2 -->
 
