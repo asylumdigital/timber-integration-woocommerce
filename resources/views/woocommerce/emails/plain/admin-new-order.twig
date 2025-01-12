@@ -16,7 +16,7 @@
 
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-{{ fn('wp_strip_all_tags', wc.email_heading )|e }}
+{{ fn('wp_strip_all_tags', wc.email_heading)|e('esc_html') }}
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 {# translators: %s: Customer billing full name #}
