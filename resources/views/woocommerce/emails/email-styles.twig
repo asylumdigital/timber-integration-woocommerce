@@ -11,43 +11,17 @@
  #
  # @see     https://woocommerce.com/document/template-structure/
  # @package WooCommerce\Templates\Emails
- # @version 9.6.0
+ # @version 9.3.0
  #}
 
 
 {# Load colors. #}
-{% set bg               = fn('get_option', 'woocommerce_email_background_color') %}
-{% set body             = fn('get_option', 'woocommerce_email_body_background_color') %}
-{% set base             = fn('get_option', 'woocommerce_email_base_color') %}
-{% set text             = fn('get_option', 'woocommerce_email_text_color') %}
-{% set footer_text      = fn('get_option', 'woocommerce_email_footer_text_color') %}
-{% set header_alignment = fn('get_option', 'woocommerce_email_header_alignment') %}
-
-{##
- # Check if we are in preview mode (WooCommerce > Settings > Emails).
- #
- # @since 9.6.0
- # @param bool $is_email_preview Whether the email is being previewed.
- #}
-{% set is_email_preview = false|apply_filters('woocommerce_is_email_preview');
-
-{% if is_email_preview %}
-	{% set bg_transient               = fn('get_transient', 'woocommerce_email_background_color') %}
-	{% set body_transient             = fn('get_transient', 'woocommerce_email_body_background_color') %}
-	{% set base_transient             = fn('get_transient', 'woocommerce_email_base_color') %}
-	{% set text_transient             = fn('get_transient', 'woocommerce_email_text_color') %}
-	{% set footer_text_transient      = fn('get_transient', 'woocommerce_email_footer_text_color') %}
-	{% set header_alignment_transient = fn('get_transient', 'woocommerce_email_header_alignment') %}
-
-	{% set bg               = bg_transient ? bg_transient : bg %}
-	{% set body             = body_transient ? body_transient : body %}
-	{% set base             = base_transient ? base_transient : base %}
-	{% set text             = text_transient ? text_transient : text %}
-	{% set footer_text      = footer_text_transient ? footer_text_transient : footer_text %}
-	{% set header_alignment = header_alignment_transient ? header_alignment_transient : header_alignment %}
-{% endif %}
-
-{% set base_text = fn('wc_light_or_dark', base, '#202020', '#ffffff') %}
+{% set bg          = fn('get_option', 'woocommerce_email_background_color' ) %}
+{% set body        = fn('get_option', 'woocommerce_email_body_background_color' ) %}
+{% set base        = fn('get_option', 'woocommerce_email_base_color' ) %}
+{% set base_text   = fn('wc_light_or_dark', base, '#202020', '#ffffff' ) %}
+{% set text        = fn('get_option', 'woocommerce_email_text_color' ) %}
+{% set footer_text = fn('get_option', 'woocommerce_email_footer_text_color' ) %}
 
 {# Pick a contrasting color for links. #}
 {% set link_color = fn('wc_hex_is_light', base) ? base : base_text %}
@@ -56,24 +30,23 @@
 	{% set link_color = fn('wc_hex_is_light', base ) ? base_text : base %}
 {% endif %}
 
-{% set bg_darker_10    = fn('wc_hex_darker', bg, 10) %}
-{% set body_darker_10  = fn('wc_hex_darker', body, 10) %}
-{% set base_lighter_20 = fn('wc_hex_lighter', base, 20) %}
-{% set base_lighter_40 = fn('wc_hex_lighter', base, 40) %}
-{% set text_lighter_20 = fn('wc_hex_lighter', text, 20) %}
-{% set text_lighter_40 = fn('wc_hex_lighter', text, 40) %}
+{% set bg_darker_10    = fn('wc_hex_darker', bg, 10 ) %}
+{% set body_darker_10  = fn('wc_hex_darker', body, 10 ) %}
+{% set base_lighter_20 = fn('wc_hex_lighter', base, 20 ) %}
+{% set base_lighter_40 = fn('wc_hex_lighter', base, 40 ) %}
+{% set text_lighter_20 = fn('wc_hex_lighter', text, 20 ) %}
+{% set text_lighter_40 = fn('wc_hex_lighter', text, 40 ) %}
 
-{# !important; is a gmail hack to prevent styles being stripped if it doesn't like something.
-body{padding: 0;} ensures proper scale/positioning of the email in the iOS native email app. #}
-
+{# !important; is a gmail hack to prevent styles being stripped if it doesn't like something. #}
+{# body{padding: 0;} ensures proper scale/positioning of the email in the iOS native email app. #}
 body {
-	background-color: {{ bg|e('html_attr') }};
+	background-color: {{ bg|esc_attr }};
 	padding: 0;
 	text-align: center;
 }
 
 #outer_wrapper {
-	background-color: {{ bg|e('html_attr') }};
+	background-color: {{ bg|esc_attr }};
 }
 
 #wrapper {
@@ -86,15 +59,15 @@ body {
 
 #template_container {
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1) !important;
-	background-color: {{ body|e('html_attr') }};
-	border: 1px solid {{ bg_darker_10|e('html_attr') }};
+	background-color: {{ body|esc_attr }};
+	border: 1px solid {{ bg_darker_10|esc_attr }};
 	border-radius: 3px !important;
 }
 
 #template_header {
-	background-color: {{ base|e('html_attr') }};
+	background-color: {{ base|esc_attr }};
 	border-radius: 3px 3px 0 0 !important;
-	color: {{ base_text|e('html_attr') }};
+	color: {{ base_text|esc_attr }};
 	border-bottom: 0;
 	font-weight: bold;
 	line-height: 100%;
@@ -104,15 +77,9 @@ body {
 
 #template_header h1,
 #template_header h1 a {
-	color: {{ base_text|e('html_attr') }};
+	color: {{ base_text|esc_attr }};
 	background-color: inherit;
 }
-
-{% if header_alignment %}
-#template_header_image p {
-	text-align: {{ header_alignment|e('html_attr') }};
-}
-{% endif; %}
 
 #template_header_image img {
 	margin-left: 0;
@@ -126,7 +93,7 @@ body {
 
 #template_footer #credit {
 	border: 0;
-	color: {{ footer_text|e('html_attr') }};
+	color: {{ footer_text|esc_attr }};
 	font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 150%;
@@ -139,7 +106,7 @@ body {
 }
 
 #body_content {
-	background-color: {{ body|e('html_attr') }};
+	background-color: {{ body|esc_attr }};
 }
 
 #body_content table td {
@@ -175,7 +142,7 @@ body {
 }
 
 #body_content_inner {
-	color: {{ text_lighter_20|e('html_attr') }};
+	color: {{ text_lighter_20|esc_attr }};
 	font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
 	font-size: 14px;
 	line-height: 150%;
@@ -183,21 +150,21 @@ body {
 }
 
 .td {
-	color: {{ text_lighter_20|e('html_attr') }};
-	border: 1px solid {{ body_darker_10|e('html_attr') }};
+	color: {{ text_lighter_20|esc_attr }};
+	border: 1px solid {{ body_darker_10|esc_attr }};
 	vertical-align: middle;
 }
 
 .address {
 	padding: 12px;
-	color: {{ text_lighter_20|e('html_attr') }};
-	border: 1px solid {{ body_darker_10|e('html_attr') }};
+	color: {{ text_lighter_20|esc_attr }};
+	border: 1px solid {{ body_darker_10|esc_attr }};
 }
 
 .additional-fields {
 	padding: 12px 12px 0;
-	color: {{ text_lighter_20|e('html_attr') }};
-	border: 1px solid {{ body_darker_10|e('html_attr') }};
+	color: {{ text_lighter_20|esc_attr }};
+	border: 1px solid {{ body_darker_10|esc_attr }};
 	list-style: none outside;
 }
 
@@ -206,12 +173,12 @@ body {
 }
 
 .text {
-	color: {{ text|e('html_attr') }};
+	color: {{ text|esc_attr }};
 	font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
 }
 
 .link {
-	color: {{ link_color|e('html_attr') }};
+	color: {{ link_color|esc_attr }};
 }
 
 #header_wrapper {
@@ -219,30 +186,24 @@ body {
 	display: block;
 }
 
-{% if header_alignment %}
-#header_wrapper h1 {
-	text-align: {{ header_alignment|e('html_attr') }};
-}
-{% endif; %}
-
 #template_footer #credit,
 #template_footer #credit a {
-	color: {{ footer_text|e('html_attr') }};
+	color: {{ footer_text|esc_attr }};
 }
 
 h1 {
-	color: {{ base|e('html_attr') }};
+	color: {{ base|esc_attr }};
 	font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
 	font-size: 30px;
 	font-weight: 300;
 	line-height: 150%;
 	margin: 0;
-	text-align: {{ fn('is_rtl') ? 'right' : 'left' }};
-	text-shadow: 0 1px 0 {{ base_lighter_20|e('html_attr') }};
+	text-align: <?php echo is_rtl() ? 'right' : 'left'; ?>;
+	text-shadow: 0 1px 0 {{ base_lighter_20|esc_attr }};
 }
 
 h2 {
-	color: {{ base|e('html_attr') }};
+	color: {{ base|esc_attr }};
 	display: block;
 	font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
 	font-size: 18px;
@@ -253,7 +214,7 @@ h2 {
 }
 
 h3 {
-	color: {{ base|e('html_attr') }};
+	color: {{ base|esc_attr }};
 	display: block;
 	font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
 	font-size: 16px;
@@ -264,7 +225,7 @@ h3 {
 }
 
 a {
-	color: {{ link_color|e('html_attr') }};
+	color: {{ link_color|esc_attr }};
 	font-weight: normal;
 	text-decoration: underline;
 }
@@ -283,8 +244,8 @@ img {
 	max-width: 100%;
 }
 
-{#
- # Media queries are not supported by all email clients, however they do work on modern mobile
+{##
+ #Media queries are not supported by all email clients, however they do work on modern mobile
  # Gmail clients and can help us achieve better consistency there.
  #}
 @media screen and (max-width: 600px) {
@@ -301,4 +262,3 @@ img {
 		font-size: 10px !important;
 	}
 }
-
