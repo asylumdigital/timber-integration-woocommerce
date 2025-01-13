@@ -15,7 +15,7 @@ class Woocommerce
     {
         // shows templates in woocommerce status as twig
         add_filter('wc_get_template', function ($file, $file2, $arr, $path, $pluginPath) {
-            if (is_admin()) {
+            if (is_admin() && ($_REQUEST['page'] ?? false) === 'wc-status') {
 
                 $fileName = str_replace('.php', '.twig', $file);
                 $file = trailingslashit(get_stylesheet_directory()) . 'app/Resources/views/' . $path . $fileName;
