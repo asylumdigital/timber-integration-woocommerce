@@ -24,7 +24,7 @@
 		<thead>
 			<tr>
                 {% for column_id,column_name in fn('wc_get_account_orders_columns') %}
-					<th scope="col" class="woocommerce-orders-table__header woocommerce-orders-table__header-{{ column_id|e('html_attr') }}"><span class="nobr">{{ column_name|e('esc_html') }}</span></th>
+					<th scope="col" class="woocommerce-orders-table__header woocommerce-orders-table__header-{{ column_id|esc_attr }}"><span class="nobr">{{ column_name|e('esc_html') }}</span></th>
 				{% endfor %}
 			</tr>
 		</thead>
@@ -35,12 +35,12 @@
 				{% set order      = fn('wc_get_order', customer_order) %}
 				{% set item_count = order.get_item_count() - order.get_item_count_refunded() %}
 
-				<tr class="woocommerce-orders-table__row woocommerce-orders-table__row--status-{{ order.get_status()|e('html_attr') }} order">
+				<tr class="woocommerce-orders-table__row woocommerce-orders-table__row--status-{{ order.get_status()|esc_attr }} order">
 					{% for column_id,column_name in fn('wc_get_account_orders_columns') %}
                         {% if 'order-number' == column_id %}
-						    <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-{{ column_id|e('html_attr') }}" data-title="{{ column_name|e('html_attr') }}">
+						    <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-{{ column_id|esc_attr }}" data-title="{{ column_name|esc_attr }}">
                         {% else %}
-						    <th class="woocommerce-orders-table__cell woocommerce-orders-table__cell-{{ column_id|e('html_attr') }}" data-title="{{ column_name|e('html_attr') }}" scope="row">
+						    <th class="woocommerce-orders-table__cell woocommerce-orders-table__cell-{{ column_id|esc_attr }}" data-title="{{ column_name|esc_attr }}" scope="row">
                         {% endif %}
 
 							{% if fn('has_action', 'woocommerce_my_account_my_orders_column_' . column_id ) %}
@@ -49,12 +49,12 @@
 							{% elseif 'order-number' == column_id %}
 								{# translators: %s: the order number, usually accompanied by a leading # #}
 
-								<a href="{{ order.get_view_order_url()|e('esc_url') }}" aria-label="{{ __( 'View order number %s', 'woocommerce' )|format(order.get_order_number()|e('html_attr')) }}">
+								<a href="{{ order.get_view_order_url()|e('esc_url') }}" aria-label="{{ __( 'View order number %s', 'woocommerce' )|format(order.get_order_number()|esc_attr) }}">
 									{{ _x( '#', 'hash before order number', 'woocommerce' ) ~ order.get_order_number()|e('esc_html') }}
 								</a>
 
 							{% elseif 'order-date' == column_id %}
-								<time datetime="{{ order.get_date_created().date( 'c' )|e('html_attr') }}">{{ fn('wc_format_datetime', order.get_date_created())|e('esc_html') }}</time>
+								<time datetime="{{ order.get_date_created().date( 'c' )|esc_attr }}">{{ fn('wc_format_datetime', order.get_date_created())|e('esc_html') }}</time>
 
 							{% elseif 'order-status' == column_id %}
 								{{ fn('wc_get_order_status_name', order.get_status())|e('esc_html') }}
@@ -71,7 +71,7 @@
 									{% for key,action in actions %}
                                         {% set action_aria_label = action['aria-label'] ? action['aria-label'] : __( '%1$s order number %2$s', 'woocommerce' )|format(action.name, order.get_order_number()) %}
 
-                                        <a href="{{ action.url|e('esc_url') }}" class="woocommerce-button {{ wc.wp_button_class|e('html_attr') }} button {{ fn('sanitize_html_class', key) }} " aria-label="{{ action_aria_label|e('html_attr') }}">{{ action.name|e('esc_html') }}</a>
+                                        <a href="{{ action.url|e('esc_url') }}" class="woocommerce-button {{ wc.wp_button_class|esc_attr }} button {{ fn('sanitize_html_class', key) }} " aria-label="{{ action_aria_label|esc_attr }}">{{ action.name|e('esc_html') }}</a>
 
                                         {% set action_aria_label = null %}
 									{% endfor %}

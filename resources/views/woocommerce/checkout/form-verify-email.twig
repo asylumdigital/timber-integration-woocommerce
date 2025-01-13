@@ -35,7 +35,7 @@
 	</p>
 
 	<p class="form-row">
-		<button type="submit" class="woocommerce-button button {{ fn('wc_wp_theme_get_element_class_name', 'button')|e('html_attr') }}" name="verify" value="1">
+		<button type="submit" class="woocommerce-button button {{ fn('wc_wp_theme_get_element_class_name', 'button')|esc_attr }}" name="verify" value="1">
 			{{ __( 'Verify', 'woocommerce' )|e }}
 		</button>
 	</p>

@@ -35,7 +35,7 @@
 		{% if 'yes' == fn('get_option', 'woocommerce_review_rating_verification_label') and verified %}
 			<em class="woocommerce-review__verified verified">( {{ __( 'verified owner', 'woocommerce' )|e }} )</em>
 		{% endif %}
-		<span class="woocommerce-review__dash">&ndash;</span> <time class="woocommerce-review__published-date" datetime="{{ fn('get_comment_date', 'c')|e('html_attr') }}">{{ fn('get_comment_date', fn('wc_date_format') )|e }}</time>
+		<span class="woocommerce-review__dash">&ndash;</span> <time class="woocommerce-review__published-date" datetime="{{ fn('get_comment_date', 'c')|esc_attr }}">{{ fn('get_comment_date', fn('wc_date_format') )|e }}</time>
 	</p>
 
 {% endif %}

@@ -21,7 +21,7 @@
 	{{ __( 'You must be logged in to checkout.', 'woocommerce' )|apply_filters( 'woocommerce_checkout_must_be_logged_in_message')|e('esc_html') }}
 {% else %}
 
-    <form name="checkout" method="post" class="checkout woocommerce-checkout" action="{{ fn('wc_get_checkout_url') }}" enctype="multipart/form-data" aria-label="{{ __( 'Checkout', 'woocommerce' )|e('html_attr') }}">
+    <form name="checkout" method="post" class="checkout woocommerce-checkout" action="{{ fn('wc_get_checkout_url') }}" enctype="multipart/form-data" aria-label="{{ __( 'Checkout', 'woocommerce' )|esc_attr }}">
 
         {% if wc.checkout.get_checkout_fields() %}
 

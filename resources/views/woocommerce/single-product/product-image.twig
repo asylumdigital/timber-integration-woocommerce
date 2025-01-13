@@ -27,7 +27,7 @@
         'images',
     ]|apply_filters('woocommerce_single_product_image_gallery_classes') %}
 
-    <div class="{{ fn('array_map', 'sanitize_html_class', wrapper_classes)|join(' ')|e }}" data-columns="{{ columns|e('html_attr') }}" style="opacity: 0; transition: opacity .25s ease-in-out;">
+    <div class="{{ fn('array_map', 'sanitize_html_class', wrapper_classes)|join(' ')|e }}" data-columns="{{ columns|esc_attr }}" style="opacity: 0; transition: opacity .25s ease-in-out;">
         <figure class="woocommerce-product-gallery__wrapper">
             {% if post_thumbnail_id %}
                 {% set html = fn('wc_get_gallery_image_html', post_thumbnail_id, true) %}

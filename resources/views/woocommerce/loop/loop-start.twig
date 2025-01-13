@@ -15,4 +15,4 @@
  #}
 
 
-<ul class="products columns-{{ fn('wc_get_loop_prop', 'columns')|e('html_attr') }}">
+<ul class="products columns-{{ fn('wc_get_loop_prop', 'columns')|esc_attr }}">

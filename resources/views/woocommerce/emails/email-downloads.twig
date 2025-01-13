@@ -43,7 +43,7 @@
                         {% elseif column_id == 'download-expires' %}
                             {% if download.access_expires %}
 
-                                <time datetime="{{ download.access_expires|date('Y-m-d')|e('html_attr') }}" title="{{ fn('strtotime', download.access_expires)|e('esc_attr') }}">{{ fn('date_i18n', fn('get_option', 'date_format'), fn('strtotime', download.access_expires))|e('esc_html') }}</time>
+                                <time datetime="{{ download.access_expires|date('Y-m-d')|esc_attr }}" title="{{ fn('strtotime', download.access_expires)|e('esc_attr') }}">{{ fn('date_i18n', fn('get_option', 'date_format'), fn('strtotime', download.access_expires))|e('esc_html') }}</time>
                             {% else %}
                                 {{ __( 'Never', 'woocommerce' )|e('esc_html') }}
                             {% endif %}

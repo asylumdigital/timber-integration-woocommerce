@@ -20,7 +20,7 @@
 <form class="cart" action="{{ wc.product_url|e('esc_url') }}" method="get">
 	{% do action('woocommerce_before_add_to_cart_button') %}
 
-	<button type="submit" class="single_add_to_cart_button button alt {{ fn('wc_wp_theme_get_element_class_name', 'button')|e('html_attr') }}">{{ wc.button_text|e }}</button>
+	<button type="submit" class="single_add_to_cart_button button alt {{ fn('wc_wp_theme_get_element_class_name', 'button')|esc_attr }}">{{ wc.button_text|e }}</button>
 
 	{% do fn('wc_query_string_form_fields', wc.product_url) %}
 

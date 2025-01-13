@@ -33,8 +33,8 @@
             {% set image         = product.get_image(wc.image_size) %}
         {% endif %}
 
-        <tr class="{{ 'order_item'|apply_filters('woocommerce_order_item_class', item, wc.order)|e('html_attr') }}">
-            <td class="td" style="text-align: {{ text_align|e('html_attr') }}; vertical-align: middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; word-wrap:break-word;">
+        <tr class="{{ 'order_item'|apply_filters('woocommerce_order_item_class', item, wc.order)|esc_attr }}">
+            <td class="td" style="text-align: {{ text_align|esc_attr }}; vertical-align: middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; word-wrap:break-word;">
                 {# Show title/image etc. #}
                 {% if wc.show_image %}
                     {{ image|apply_filters('woocommerce_order_item_thumbnail', item)|wp_kses_post }}
@@ -54,7 +54,7 @@
                 {% do fn('wc_display_item_meta',
                     item,
                     {
-                        'label_before' : '<strong class="wc-item-meta-label" style="float: %s; margin-%s: .25em; clear: both">'|format(text_align|e('html_attr'), margin_side|e('html_attr')),
+                        'label_before' : '<strong class="wc-item-meta-label" style="float: %s; margin-%s: .25em; clear: both">'|format(text_align|esc_attr, margin_side|esc_attr),
                     }
                 ) %}
 

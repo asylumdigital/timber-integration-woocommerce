@@ -29,7 +29,7 @@
 				<select name="calc_shipping_country" id="calc_shipping_country" class="country_to_state country_select" rel="calc_shipping_state">
 					<option value="default">{{ __( 'Select a country / region&hellip;', 'woocommerce' )|e('esc_html') }}</option>
 					{% for key,value in countries.get_shipping_countries() %}
-						<option value="{{ key|e('html_attr') }}" {{ fn('selected', customer.get_shipping_country(), key|e('html_attr'), false ) }}>{{ value|e('esc_html') }}</option>
+						<option value="{{ key|esc_attr }}" {{ fn('selected', customer.get_shipping_country(), key|esc_attr, false ) }}>{{ value|e('esc_html') }}</option>
 					{% endfor %}
 				</select>
 			</p>
@@ -44,21 +44,21 @@
 
 				{% if states is iterable and states is empty %}
 
-					<input type="hidden" name="calc_shipping_state" id="calc_shipping_state" placeholder="{{ __( 'State / County', 'woocommerce' )|e('html_attr') }}" />
+					<input type="hidden" name="calc_shipping_state" id="calc_shipping_state" placeholder="{{ __( 'State / County', 'woocommerce' )|esc_attr }}" />
 
 				{% elseif states|length %}
 					<span>
 						<label for="calc_shipping_state" class="screen-reader-text">{{ __( 'State / County:', 'woocommerce' )|e('esc_html') }}</label>
-						<select name="calc_shipping_state" class="state_select" id="calc_shipping_state" data-placeholder="{{ __( 'State / County', 'woocommerce' )|e('html_attr') }}">
+						<select name="calc_shipping_state" class="state_select" id="calc_shipping_state" data-placeholder="{{ __( 'State / County', 'woocommerce' )|esc_attr }}">
 							<option value="">{{ __( 'Select an option&hellip;', 'woocommerce' )|e('esc_html') }}</option>
                             {% for ckey,cvalue in states %}
-                                <option value="{{ ckey|e('html_attr') }}" {{ fn('selected', current_r, ckey, false) }}>{{ cvalue|e('esc_html') }}</option>
+                                <option value="{{ ckey|esc_attr }}" {{ fn('selected', current_r, ckey, false) }}>{{ cvalue|e('esc_html') }}</option>
                             {% endfor %}
 						</select>
 					</span>
 				{% else %}
 					<label for="calc_shipping_state" class="screen-reader-text">{{ __( 'State / County:', 'woocommerce' )|e('esc_html') }}</label>
-					<input type="text" class="input-text" value="{{ current_r|e('html_attr') }}" placeholder="{{ __( 'State / County', 'woocommerce' )|e('html_attr') }}" name="calc_shipping_state" id="calc_shipping_state" />
+					<input type="text" class="input-text" value="{{ current_r|esc_attr }}" placeholder="{{ __( 'State / County', 'woocommerce' )|esc_attr }}" name="calc_shipping_state" id="calc_shipping_state" />
 				{% endif %}
 			</p>
 		{% endif %}
@@ -66,18 +66,18 @@
 		{% if true|apply_filters( 'woocommerce_shipping_calculator_enable_city') %}
 			<p class="form-row form-row-wide" id="calc_shipping_city_field">
 				<label for="calc_shipping_city" class="screen-reader-text">{{ __( 'City:', 'woocommerce' )|e('esc_html') }}</label>
-				<input type="text" class="input-text" value="{{ customer.get_shipping_city()|e('html_attr') }}" placeholder="{{ __( 'City', 'woocommerce' )|e('html_attr') }}" name="calc_shipping_city" id="calc_shipping_city" />
+				<input type="text" class="input-text" value="{{ customer.get_shipping_city()|esc_attr }}" placeholder="{{ __( 'City', 'woocommerce' )|esc_attr }}" name="calc_shipping_city" id="calc_shipping_city" />
 			</p>
 		{% endif %}
 
 		{% if true|apply_filters( 'woocommerce_shipping_calculator_enable_postcode' ) %}
 			<p class="form-row form-row-wide" id="calc_shipping_postcode_field">
 				<label for="calc_shipping_postcode" class="screen-reader-text">{{ __( 'Postcode / ZIP:', 'woocommerce' )|e('esc_html') }}</label>
-				<input type="text" class="input-text" value="{{ customer.get_shipping_postcode() }}" placeholder="{{ __( 'Postcode / ZIP', 'woocommerce' )|e('html_attr') }}" name="calc_shipping_postcode" id="calc_shipping_postcode" />
+				<input type="text" class="input-text" value="{{ customer.get_shipping_postcode() }}" placeholder="{{ __( 'Postcode / ZIP', 'woocommerce' )|esc_attr }}" name="calc_shipping_postcode" id="calc_shipping_postcode" />
 			</p>
 		{% endif %}
 
-		<p><button type="submit" name="calc_shipping" value="1" class="button{{ fn('wc_wp_theme_get_element_class_name', 'button') ? ' ' ~ fn('wc_wp_theme_get_element_class_name', 'button')|e('html_attr') }}">{{ __( 'Update', 'woocommerce' )|e('esc_html') }}</button></p>
+		<p><button type="submit" name="calc_shipping" value="1" class="button{{ fn('wc_wp_theme_get_element_class_name', 'button') ? ' ' ~ fn('wc_wp_theme_get_element_class_name', 'button')|esc_attr }}">{{ __( 'Update', 'woocommerce' )|e('esc_html') }}</button></p>
 		{% do fn('wp_nonce_field', 'woocommerce-shipping-calculator', 'woocommerce-shipping-calculator-nonce' ) %}
 	</section>
 </form>

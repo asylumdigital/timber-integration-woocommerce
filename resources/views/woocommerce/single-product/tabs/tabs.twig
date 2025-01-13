@@ -31,15 +31,15 @@
 	<div class="woocommerce-tabs wc-tabs-wrapper">
 		<ul class="tabs wc-tabs" role="tablist">
 			{% for key,product_tab in product_tabs %}
-				<li class="{{ key|e('html_attr') }}_tab" id="tab-title-{{ key|e('html_attr') }}" role="tab" aria-controls="tab-{{ key|e('html_attr') }}">
-					<a href="#tab-{{ key|e('html_attr') }}">
+				<li class="{{ key|esc_attr }}_tab" id="tab-title-{{ key|esc_attr }}" role="tab" aria-controls="tab-{{ key|esc_attr }}">
+					<a href="#tab-{{ key|esc_attr }}">
 						{{ product_tab.title|apply_filters( 'woocommerce_product_' ~ key ~ '_tab_title', key )|e('wp_kses_post') }}
 					</a>
 				</li>
 			{% endfor %}
 		</ul>
 		{% for key,product_tab in product_tabs %}
-			<div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--{{ key|e('html_attr') }} panel entry-content wc-tab" id="tab-{{ key|e('html_attr') }}" role="tabpanel" aria-labelledby="tab-title-{{ key|e('html_attr') }}">
+			<div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--{{ key|esc_attr }} panel entry-content wc-tab" id="tab-{{ key|esc_attr }}" role="tabpanel" aria-labelledby="tab-title-{{ key|esc_attr }}">
 				{% if product_tab.callback %}
 					{% do fn('call_user_func', product_tab.callback, key, product_tab) %}
 				{% endif %}

@@ -24,13 +24,13 @@
 
 		<tr class="cart-subtotal">
 			<th>{{ __( 'Subtotal', 'woocommerce' )|e('esc_html') }}</th>
-			<td data-title="{{ __( 'Subtotal', 'woocommerce' )|e('html_attr') }}">{% do fn('wc_cart_totals_subtotal_html') %}</td>
+			<td data-title="{{ __( 'Subtotal', 'woocommerce' )|esc_attr }}">{% do fn('wc_cart_totals_subtotal_html') %}</td>
 		</tr>
 
 		{% for code,coupon in cart.get_coupons() %}
-			<tr class="cart-discount coupon-{{ code|slugify|e('html_attr') }}">
+			<tr class="cart-discount coupon-{{ code|slugify|esc_attr }}">
 				<th>{{ fn('wc_cart_totals_coupon_label', coupon ) }}</th>
-				<td data-title="{{ fn('wc_cart_totals_coupon_label', coupon, false)|e('html_attr') }}">{% do fn('wc_cart_totals_coupon_html', coupon ) %}</td>
+				<td data-title="{{ fn('wc_cart_totals_coupon_label', coupon, false)|esc_attr }}">{% do fn('wc_cart_totals_coupon_html', coupon ) %}</td>
 			</tr>
 		{% endfor %}
 
@@ -71,15 +71,15 @@
 
 			{% if 'itemized' == fn('get_option', 'woocommerce_tax_total_display' ) %}
 				{% for code,tax in cart.get_tax_totals() %}
-					<tr class="tax-rate tax-rate-{{ code|slugify|e('html_attr') }}">
+					<tr class="tax-rate tax-rate-{{ code|slugify|esc_attr }}">
 						<th>{{ tax.label|e('esc_html') ~ estimated_text }}</th>
-						<td data-title="{{ tax.label|e('html_attr') }}">{{ tax.formatted_amount|e('wp_kses_post') }}</td>
+						<td data-title="{{ tax.label|esc_attr }}">{{ tax.formatted_amount|e('wp_kses_post') }}</td>
 					</tr>
 				{% endfor %}
 			{% else %}
 				<tr class="tax-total">
 					<th>{{ countries.tax_or_vat() ~ estimated_text }}</th>
-					<td data-title="{{ countries.tax_or_vat()|e('html_attr') }}">{% do fn('wc_cart_totals_taxes_total_html') %}</td>
+					<td data-title="{{ countries.tax_or_vat()|esc_attr }}">{% do fn('wc_cart_totals_taxes_total_html') %}</td>
 				</tr>
 			{% endif %}
 		{% endif %}
@@ -89,7 +89,7 @@
 
 		<tr class="order-total">
 			<th>{{ __( 'Total', 'woocommerce' )|e('esc_html') }}</th>
-			<td data-title="{{ __( 'Total', 'woocommerce' )|e('html_attr') }}">{% do fn('wc_cart_totals_order_total_html') %}</td>
+			<td data-title="{{ __( 'Total', 'woocommerce' )|esc_attr }}">{% do fn('wc_cart_totals_order_total_html') %}</td>
 		</tr>
 
 		{% do action( 'woocommerce_cart_totals_after_order_total' ) %}

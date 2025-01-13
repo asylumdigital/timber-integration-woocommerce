@@ -14,4 +14,4 @@
  # @version 3.0.0
  #}
 
-<p class="stock {{ wc.class|e('html_attr') }}">{{ wc.availability|e('wp_kses_post') }}</p>
+<p class="stock {{ wc.class|esc_attr }}">{{ wc.availability|e('wp_kses_post') }}</p>

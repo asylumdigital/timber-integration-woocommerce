@@ -15,5 +15,5 @@
  #}
 
 <p class="order-again">
-	<a href="{{ wc.order_again_url|e('esc_url') }}" class="button {{ wc.wp_button_class|e('html_attr') }}">{{ __( 'Order again', 'woocommerce' )|e('esc_html') }}</a>
+	<a href="{{ wc.order_again_url|e('esc_url') }}" class="button {{ wc.wp_button_class|esc_attr }}">{{ __( 'Order again', 'woocommerce' )|e('esc_html') }}</a>
 </p>

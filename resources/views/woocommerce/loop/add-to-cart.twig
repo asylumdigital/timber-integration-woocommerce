@@ -14,7 +14,7 @@
  # @version     9.2.0
  #}
 
-{% set aria_describedby = wc['aria-describedby_text'] ? 'aria-describedby="woocommerce_loop_add_to_cart_link_describedby_%s"'|format(product.get_id()|e('html_attr')) %}
+{% set aria_describedby = wc['aria-describedby_text'] ? 'aria-describedby="woocommerce_loop_add_to_cart_link_describedby_%s"'|format(product.get_id()|esc_attr) %}
 
 {{ '<a href="%s" %s data-quantity="%s" class="%s" %s>%s</a>'|format(
     product.add_to_cart_url(),
@@ -26,7 +26,7 @@
 )|apply_filters('woocommerce_loop_add_to_cart_link', product, wc)}}
 
 {% if wc['aria-describedby_text'] %}
-	<span id="woocommerce_loop_add_to_cart_link_describedby_{{ product.get_id()|e('html_attr') }}" class="screen-reader-text">
+	<span id="woocommerce_loop_add_to_cart_link_describedby_{{ product.get_id()|esc_attr }}" class="screen-reader-text">
 		{{ wc['aria-describedby_text']|e }}
 	</span>
 {% endif %}

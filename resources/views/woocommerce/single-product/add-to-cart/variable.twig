@@ -32,7 +32,7 @@
 			<tbody>
 				{% for attribute_name,options in wc.attributes %}
 					<tr>
-						<th class="label"><label for="{{ attribute_name|slugify|e('html_attr') }}">{{  fn('wc_attribute_label', attribute_name ) }}</label></th>
+						<th class="label"><label for="{{ attribute_name|slugify|esc_attr }}">{{  fn('wc_attribute_label', attribute_name ) }}</label></th>
 						<td class="value">
 							{{
 								fn('wc_dropdown_variation_attribute_options',

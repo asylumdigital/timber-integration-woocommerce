@@ -84,7 +84,7 @@
                                 {% else %}
                                     {% set action_aria_label = action['aria-label'] %}
                                 {% endif %}
-                                    <a href="{{ action.url|e('esc_url') }}" class="woocommerce-button {{ wp_button_class|e('html_attr') }} button {{ fn('sanitize_html_class', key) }} order-actions-button" aria-label="{{ action_aria_label|e('html_attr') }}">{{ action.name|e('esc_html') }}</a>
+                                    <a href="{{ action.url|e('esc_url') }}" class="woocommerce-button {{ wp_button_class|esc_attr }} button {{ fn('sanitize_html_class', key) }} order-actions-button" aria-label="{{ action_aria_label|esc_attr }}">{{ action.name|e('esc_html') }}</a>
                                     {% set action_aria_label = null %}
                             {% endfor %}
 

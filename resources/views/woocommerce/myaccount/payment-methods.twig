@@ -28,7 +28,7 @@
 		<thead>
 			<tr>
 				{% for column_id, column_name in fn( 'wc_get_account_payment_methods_columns') %}
-					<th class="woocommerce-PaymentMethod woocommerce-PaymentMethod--{{ column_id|e('html_attr') }} payment-method-{{ column_id|e('html_attr') }}"><span class="nobr">{{ column_name|e('esc_html') }}</span></th>
+					<th class="woocommerce-PaymentMethod woocommerce-PaymentMethod--{{ column_id|esc_attr }} payment-method-{{ column_id|esc_attr }}"><span class="nobr">{{ column_name|e('esc_html') }}</span></th>
 				{% endfor %}
 			</tr>
 		</thead>
@@ -36,7 +36,7 @@
 			{% for method in methods %}
 				<tr class="payment-method{{ method.is_default ? ' default-payment-method' }}">
 					{% for column_id,column_name in fn('wc_get_account_payment_methods_columns') %}
-						<td class="woocommerce-PaymentMethod woocommerce-PaymentMethod--{{ column_id|e('html_attr') }} payment-method-{{ column_id|e('html_attr') }}" data-title="{{ column_name|e('html_attr') }}">
+						<td class="woocommerce-PaymentMethod woocommerce-PaymentMethod--{{ column_id|esc_attr }} payment-method-{{ column_id|esc_attr }}" data-title="{{ column_name|esc_attr }}">
 
 							{% if fn('has_action', 'woocommerce_account_payment_methods_column_' . column_id ) %}
 								{% do action( 'woocommerce_account_payment_methods_column_' . column_id, method ) %}

@@ -38,7 +38,7 @@
             {% do action( 'woocommerce_after_add_to_cart_quantity' ) %}
 
 
-            <button type="submit" name="add-to-cart" value="{{ product.get_id()|e('html_attr') }}" class="single_add_to_cart_button button alt{{ fn('wc_wp_theme_get_element_class_name', 'button')|e('html_attr') ? ' ' ~ fn('wc_wp_theme_get_element_class_name', 'button')|e('html_attr') }}">{{ product.single_add_to_cart_text()|e }}</button>
+            <button type="submit" name="add-to-cart" value="{{ product.get_id()|esc_attr }}" class="single_add_to_cart_button button alt{{ fn('wc_wp_theme_get_element_class_name', 'button')|esc_attr ? ' ' ~ fn('wc_wp_theme_get_element_class_name', 'button')|esc_attr }}">{{ product.single_add_to_cart_text()|e }}</button>
 
             {% do action( 'woocommerce_after_add_to_cart_button' ) %}
         </form>

@@ -34,7 +34,7 @@
 				{% for item_id,item in wc.order.get_items() %}
 
 					{% if true|apply_filters( 'woocommerce_order_item_visible', item) %}
-                        <tr class="{{ 'order_item'|apply_filters('woocommerce_order_item_class', item, wc.order)|e('html_attr') }}">
+                        <tr class="{{ 'order_item'|apply_filters('woocommerce_order_item_class', item, wc.order)|esc_attr }}">
                             <td class="product-name">
                                 {{ item.get_name()|apply_filters('woocommerce_order_item_name', item, false)|wp_kses_post }}
 
@@ -93,7 +93,7 @@
 
 			{% do action('woocommerce_pay_order_before_submit') %}
 
-            {% set button = '<button type="submit" class="button alt" id="place_order" value="%1$s" data-value="%1$s">%1$s</button>'|format(wc.order_button_text|e('html_attr')) %}
+            {% set button = '<button type="submit" class="button alt" id="place_order" value="%1$s" data-value="%1$s">%1$s</button>'|format(wc.order_button_text|esc_attr) %}
 
             {{ button|apply_filters('woocommerce_pay_order_button_html') }}
 

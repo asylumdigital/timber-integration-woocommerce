@@ -40,7 +40,7 @@
 			{% do action( "woocommerce_after_edit_address_form_" ~ wc.load_address ) %}
 
 			<p>
-				<button type="submit" class="button{{ fn('wc_wp_theme_get_element_class_name', 'button') ? ' ' ~ fn('wc_wp_theme_get_element_class_name', 'button' )|e('html_attr') }}" name="save_address" value="{{ __( 'Save address', 'woocommerce' )|e('html_attr') }}">{{ __( 'Save address', 'woocommerce' )|e('esc_html') }}</button>
+				<button type="submit" class="button{{ fn('wc_wp_theme_get_element_class_name', 'button') ? ' ' ~ fn('wc_wp_theme_get_element_class_name', 'button' )|esc_attr }}" name="save_address" value="{{ __( 'Save address', 'woocommerce' )|esc_attr }}">{{ __( 'Save address', 'woocommerce' )|e('esc_html') }}</button>
 				{% do fn('wp_nonce_field', 'woocommerce-edit_address', 'woocommerce-edit-address-nonce' ) %}
 				<input type="hidden" name="action" value="edit_address" />
 			</p>

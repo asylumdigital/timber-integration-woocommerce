@@ -33,7 +33,7 @@
 <form method="post" class="wc-auth-login">
 	<p class="form-row form-row-wide">
 		<label for="username">{{ __( 'Username or email address', 'woocommerce' )|e }}&nbsp;<span class="required" aria-hidden="true">*</span></label>
-		<input type="text" class="input-text" name="username" id="username" value="{{ request.post.username|e('html_attr') }}" required aria-required="true" />
+		<input type="text" class="input-text" name="username" id="username" value="{{ request.post.username|esc_attr }}" required aria-required="true" />
 	</p>
 	<p class="form-row form-row-wide">
 		<label for="password">{{ __( 'Password', 'woocommerce' )|e }}&nbsp;<span class="required" aria-hidden="true">*</span></label>
@@ -41,7 +41,7 @@
 	</p>
 	<p class="wc-auth-actions">
 		{% do fn('wp_nonce_field', 'woocommerce-login', 'woocommerce-login-nonce') %}
-		<button type="submit" class="button button-large button-primary wc-auth-login-button {{ fn('wc_wp_theme_get_element_class_name', 'button')|e('html_attr') }}" name="login" value="{{ __( 'Login', 'woocommerce' )|e('html_attr') }}">{{ __( 'Login', 'woocommerce' )|e }}</button>
+		<button type="submit" class="button button-large button-primary wc-auth-login-button {{ fn('wc_wp_theme_get_element_class_name', 'button')|esc_attr }}" name="login" value="{{ __( 'Login', 'woocommerce' )|esc_attr }}">{{ __( 'Login', 'woocommerce' )|e }}</button>
 		<input type="hidden" name="redirect" value="{{ wc.redirect_url|e('esc_url') }}" />
 	</p>
 </form>

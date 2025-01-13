@@ -19,13 +19,13 @@
 <form method="get" action="{{ wc.form_action|e('esc_url') }}">
 	<div class="price_slider_wrapper">
 		<div class="price_slider" style="display:none;"></div>
-		<div class="price_slider_amount" data-step="{{ wc.step|e('html_attr') }}">
+		<div class="price_slider_amount" data-step="{{ wc.step|esc_attr }}">
 			<label class="screen-reader-text" for="min_price">{{ __( 'Min price', 'woocommerce' )|e('esc_html') }}</label>
-			<input type="text" id="min_price" name="min_price" value="{{ wc.current_min_price|e('html_attr') }}" data-min="{{ wc.min_price|e('html_attr') }}" placeholder="{{ __( 'Min price', 'woocommerce' )|e('html_attr') }}" />
+			<input type="text" id="min_price" name="min_price" value="{{ wc.current_min_price|esc_attr }}" data-min="{{ wc.min_price|esc_attr }}" placeholder="{{ __( 'Min price', 'woocommerce' )|esc_attr }}" />
 			<label class="screen-reader-text" for="max_price">{{ __( 'Max price', 'woocommerce' )|e('esc_html') }}</label>
-			<input type="text" id="max_price" name="max_price" value="{{ wc.current_max_price|e('html_attr') }}" data-max="{{ wc.max_price|e('html_attr') }}" placeholder="{{ __( 'Max price', 'woocommerce' )|e('html_attr') }}" />
+			<input type="text" id="max_price" name="max_price" value="{{ wc.current_max_price|esc_attr }}" data-max="{{ wc.max_price|esc_attr }}" placeholder="{{ __( 'Max price', 'woocommerce' )|esc_attr }}" />
 			{# translators: Filter: verb "to filter" #}
-			<button type="submit" class="button{{ fn('wc_wp_theme_get_element_class_name', 'button') ? ' ' ~ fn('wc_wp_theme_get_element_class_name', 'button' )|e('html_attr') }}">{{ __( 'Filter', 'woocommerce' )|e('esc_html') }}</button>
+			<button type="submit" class="button{{ fn('wc_wp_theme_get_element_class_name', 'button') ? ' ' ~ fn('wc_wp_theme_get_element_class_name', 'button' )|esc_attr }}">{{ __( 'Filter', 'woocommerce' )|e('esc_html') }}</button>
 			<div class="price_label" style="display:none;">
 				{{ __( 'Price:', 'woocommerce' )|e('esc_html') }} <span class="from"></span> &mdash; <span class="to"></span>
 			</div>

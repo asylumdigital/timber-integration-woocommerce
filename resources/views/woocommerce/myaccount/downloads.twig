@@ -16,7 +16,7 @@
  # @version 7.8.0
  #}
 
-{% set downloads     = customer.get_downloadable_products() %}
+{% set downloads     = fn('WC').customer.get_downloadable_products() %}
 {% set has_downloads = downloads|default([])|length ? true : false %}
 
 {% do action( 'woocommerce_before_account_downloads', has_downloads ) %}
@@ -32,7 +32,7 @@
 {% else %}
     {% set wp_button_class = fn('wc_wp_theme_get_element_class_name', 'button') ? ' ' ~ fn('wc_wp_theme_get_element_class_name', 'button') : '' %}
 	{% set button = ' <a class="button wc-forward%s" href="%s">%s</a>'|format(
-        wp_button_class|e('html_attr'),
+        wp_button_class|esc_attr,
         fn('wc_get_page_permalink', 'shop')|apply_filters( 'woocommerce_return_to_shop_redirect')|e('esc_url'),
         __( 'Browse products', 'woocommerce' )|e
     ) %}

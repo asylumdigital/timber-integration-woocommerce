@@ -25,19 +25,19 @@
 
 <tr class="woocommerce-shipping-totals shipping">
 	<th>{{ package_name|e('wp_kses_post') }}</th>
-	<td data-title="{{ package_name|e('html_attr') }}">
+	<td data-title="{{ package_name|esc_attr }}">
 		{% if wc.available_methods %}
 			<ul id="shipping_method" class="woocommerce-shipping-methods">
 				{% for method in wc.available_methods %}
 					<li>
 						{% if 1 < wc.available_methods|length %}
-                            {{ '<input type="radio" name="shipping_method[%1$d]" data-index="%1$d" id="shipping_method_%1$d_%2$s" value="%3$s" class="shipping_method" %4$s />'|format(wc.index, method.id|slugify|e('html_attr'), method.id|e('html_attr'), fn('checked', method.id, wc.chosen_method, false )) }}
+                            {{ '<input type="radio" name="shipping_method[%1$d]" data-index="%1$d" id="shipping_method_%1$d_%2$s" value="%3$s" class="shipping_method" %4$s />'|format(wc.index, method.id|slugify|esc_attr, method.id|esc_attr, fn('checked', method.id, wc.chosen_method, false )) }}
 						{% else %}
 
-							{{ '<input type="hidden" name="shipping_method[%1$d]" data-index="%1$d" id="shipping_method_%1$d_%2$s" value="%3$s" class="shipping_method" />'|format(wc.index, method.id|slugify|e('html_attr'), method.id|e('html_attr')) }}
+							{{ '<input type="hidden" name="shipping_method[%1$d]" data-index="%1$d" id="shipping_method_%1$d_%2$s" value="%3$s" class="shipping_method" />'|format(wc.index, method.id|slugify|esc_attr, method.id|esc_attr) }}
 						{% endif %}
 
-						{{ '<label for="shipping_method_%1$s_%2$s">%3$s</label>'|format(wc.index, method.id|slugify|e('html_attr'), fn('wc_cart_totals_shipping_method_label', method)) }}
+						{{ '<label for="shipping_method_%1$s_%2$s">%3$s</label>'|format(wc.index, method.id|slugify|esc_attr, fn('wc_cart_totals_shipping_method_label', method)) }}
 						{% do action( 'woocommerce_after_shipping_rate', method, wc.index ) %}
 					</li>
 				{% endfor %}

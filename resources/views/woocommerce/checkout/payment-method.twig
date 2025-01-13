@@ -14,14 +14,14 @@
  # @version     3.5.0
  #}
 
-<li class="wc_payment_method payment_method_{{ wc.gateway.id|e('html_attr') }}">
-	<input id="payment_method_{{ wc.gateway.id|e('html_attr') }}" type="radio" class="input-radio" name="payment_method" value="{{ wc.gateway.id|e('html_attr') }}" {% do fn('checked', wc.gateway.chosen, true ) %} data-order_button_text="{{ wc.gateway.order_button_text|e('html_attr') }}" />
+<li class="wc_payment_method payment_method_{{ wc.gateway.id|esc_attr }}">
+	<input id="payment_method_{{ wc.gateway.id|esc_attr }}" type="radio" class="input-radio" name="payment_method" value="{{ wc.gateway.id|esc_attr }}" {% do fn('checked', wc.gateway.chosen, true ) %} data-order_button_text="{{ wc.gateway.order_button_text|esc_attr }}" />
 
-	<label for="payment_method_{{ wc.gateway.id|e('html_attr') }}">
+	<label for="payment_method_{{ wc.gateway.id|esc_attr }}">
 		{{ wc.gateway.get_title() }} {{ wc.gateway.get_icon() }}
 	</label>
 	{% if wc.gateway.has_fields() or wc.gateway.get_description() %}
-		<div class="payment_box payment_method_{{ wc.gateway.id|e('html_attr') }}" {{ not wc.gateway.chosen ? 'style="display:none;"' }}>
+		<div class="payment_box payment_method_{{ wc.gateway.id|esc_attr }}" {{ not wc.gateway.chosen ? 'style="display:none;"' }}>
 			{% do wc.gateway.payment_fields() %}
 		</div>
 	{% endif %}

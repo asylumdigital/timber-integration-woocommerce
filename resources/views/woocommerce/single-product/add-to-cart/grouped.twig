@@ -42,7 +42,7 @@
 					{% set show_add_to_cart_button = true %}
 				{% endif %}
 
-				<tr id="product-{{ grouped_product_child.get_id()|e('html_attr') }}" class="woocommerce-grouped-product-list-item {{ fn('wc_get_product_class', '', grouped_product_child )|join(' ')|e('esc_html') }}">
+				<tr id="product-{{ grouped_product_child.get_id()|esc_attr }}" class="woocommerce-grouped-product-list-item {{ fn('wc_get_product_class', '', grouped_product_child )|join(' ')|e('esc_html') }}">
 
 				{# Output columns for each product. #}
 				{% for column_id in grouped_product_columns %}
@@ -55,8 +55,8 @@
                         {% if not grouped_product_child.is_purchasable() or grouped_product_child.has_options() or not grouped_product_child.is_in_stock() %}
                             {% do fn('woocommerce_template_loop_add_to_cart') %}
                         {% elseif grouped_product_child.is_sold_individually() %}
-                            <input type="checkbox" name="quantity[{{ grouped_product_child.get_id()|e('html_attr') }}]" value="1" class="wc-grouped-product-add-to-cart-checkbox" id="quantity-{{ grouped_product_child.get_id()|e('html_attr') }}" />
-                            <label for="quantity-{{ grouped_product_child.get_id()|e('html_attr') }}" class="screen-reader-text">{{ __( 'Buy one of this item', 'woocommerce' )|e }}</label>
+                            <input type="checkbox" name="quantity[{{ grouped_product_child.get_id()|esc_attr }}]" value="1" class="wc-grouped-product-add-to-cart-checkbox" id="quantity-{{ grouped_product_child.get_id()|esc_attr }}" />
+                            <label for="quantity-{{ grouped_product_child.get_id()|esc_attr }}" class="screen-reader-text">{{ __( 'Buy one of this item', 'woocommerce' )|e }}</label>
                         {% else %}
                             {% do action('woocommerce_before_add_to_cart_quantity') %}
 
@@ -76,7 +76,7 @@
                         {% set value = fn('ob_get_clean') %}
 
                     {% elseif column_id == 'label' %}
-                        {% set value = '<label for="product-' ~ grouped_product_child.get_id()|e('html_attr') ~ '">' %}
+                        {% set value = '<label for="product-' ~ grouped_product_child.get_id()|esc_attr ~ '">' %}
                         {% set value = value ~ grouped_product_child.is_visible() ? '<a href="' ~ grouped_product_child.get_permalink()|apply_filters('woocommerce_grouped_product_list_link', grouped_product_child.get_id())|e('esc_url')  ~ '">' ~ grouped_product_child.get_name() ~ '</a>' : grouped_product_child.get_name() %}
                         {% set value = value ~ '</label>' %}
 
@@ -85,7 +85,7 @@
 
                     {% endif %}
 
-					<td class="woocommerce-grouped-product-list-item__{{ column_id|e('html_attr') }}">{{ value|apply_filters( 'woocommerce_grouped_product_list_column_' ~ column_id, grouped_product_child) }}</td>
+					<td class="woocommerce-grouped-product-list-item__{{ column_id|esc_attr }}">{{ value|apply_filters( 'woocommerce_grouped_product_list_column_' ~ column_id, grouped_product_child) }}</td>
 
 					{% do action('woocommerce_grouped_product_list_after_' ~ column_id, grouped_product_child ) %}
 				{% endfor %}

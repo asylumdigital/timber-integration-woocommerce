@@ -96,18 +96,18 @@
                     {% set comment_form_fields = {} %}
 
                     {% for key,field in fields %}
-                        {% set field_html = '<p class="comment-form-%s">'|format(key|e('html_attr')) %}
-                        {% set field_html = field_html ~ '<label for="%s">%s'|format(key|e('html_attr'), field.label|e) %}
+                        {% set field_html = '<p class="comment-form-%s">'|format(key|esc_attr) %}
+                        {% set field_html = field_html ~ '<label for="%s">%s'|format(key|esc_attr, field.label|e) %}
 
                         {% if field.required %}
                             {% set field_html = field_html ~ '&nbsp;<span class="required">*</span>' %}
                         {% endif %}
 
                         {% set field_html = field_html ~ '</label><input id="%s" name="%s" type="%s" value="%s" size="30" %s /></p>'|format(
-                            key|e('html_attr'),
-                            key|e('html_attr'),
-                            field.type|e('html_attr'),
-                            field.value|e('html_attr'),
+                            key|esc_attr,
+                            key|esc_attr,
+                            field.type|esc_attr,
+                            field.value|esc_attr,
                             field.required ? 'required'
                         ) %}
 

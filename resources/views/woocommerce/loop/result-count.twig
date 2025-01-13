@@ -31,6 +31,6 @@
         {% set orderedby_placeholder = wc.orderedby is empty ? '%4$s' : '<span class="screen-reader-text">%4$s</span>' %}
 		{# translators: 1: first result 2: last result 3: total results  #}
         {% set results_text = _nx( 'Showing %1$d&ndash;%2$d of %3$d result', 'Showing %1$d&ndash;%2$d of %3$d results', wc.total, 'with first and last result', 'woocommerce') ~ orderedby_placeholder %}
-		{{ results_text|format(first, last, wc.total, wc.orderedby|e('html_attr')) }}
+		{{ results_text|format(first, last, wc.total, wc.orderedby|esc_attr) }}
 	{% endif %}
 </p>

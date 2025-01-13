@@ -22,7 +22,7 @@
 
 {% if total > 1 %}
 
-    <nav class="woocommerce-pagination" aria-label="{{ __('Product Pagination', 'woocommerce')|e('html_attr') }}">
+    <nav class="woocommerce-pagination" aria-label="{{ __('Product Pagination', 'woocommerce')|esc_attr }}">
         {# todo: Replace with posts.pagination #}
         {{ fn('paginate_links', {
                 'base'      : base,

@@ -31,7 +31,11 @@ class Woocommerce
             return $file;
         }, 10, 5);
 
-        if (is_admin() && ($_GET['page'] ?? false) !== 'codemanas-woocommerce-preview-emails') {
+        $adminPages = [
+            'wc-status'
+        ];
+
+        if (is_admin() && in_array(($_GET['page'] ?? false), $adminPages)) {
             return;
         }
 

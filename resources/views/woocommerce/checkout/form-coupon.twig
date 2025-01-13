@@ -25,11 +25,11 @@
 
         <p class="form-row form-row-first">
             <label for="coupon_code" class="screen-reader-text">{{ __( 'Coupon:', 'woocommerce' )|e('esc_html') }}</label>
-            <input type="text" name="coupon_code" class="input-text" placeholder="{{ __( 'Coupon code', 'woocommerce' )|e('html_attr') }}" id="coupon_code" value="" />
+            <input type="text" name="coupon_code" class="input-text" placeholder="{{ __( 'Coupon code', 'woocommerce' )|esc_attr }}" id="coupon_code" value="" />
         </p>
 
         <p class="form-row form-row-last">
-            <button type="submit" class="button{{ fn('wc_wp_theme_get_element_class_name', 'button') ? ' ' ~ fn('wc_wp_theme_get_element_class_name', 'button' )|e('html_attr') }}" name="apply_coupon" value="{{ __( 'Apply coupon', 'woocommerce' )|e('html_attr') }}">{{ __( 'Apply coupon', 'woocommerce' )|e('esc_html') }}</button>
+            <button type="submit" class="button{{ fn('wc_wp_theme_get_element_class_name', 'button') ? ' ' ~ fn('wc_wp_theme_get_element_class_name', 'button' )|esc_attr }}" name="apply_coupon" value="{{ __( 'Apply coupon', 'woocommerce' )|esc_attr }}">{{ __( 'Apply coupon', 'woocommerce' )|e('esc_html') }}</button>
         </p>
 
         <div class="clear"></div>

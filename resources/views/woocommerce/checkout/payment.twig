@@ -43,14 +43,14 @@
             {{ __( 'Since your browser does not support JavaScript, or it is disabled, please ensure you click the %1$sUpdate Totals%2$s button before placing your order. You may be charged more than the amount stated above if you fail to do so.', 'woocommerce' )|e('esc_html')|format('<em>', '</em>') }}
 
 
-			<br/><button type="submit" class="button alt{{ fn('wc_wp_theme_get_element_class_name', 'button')  ? ' ' ~ fn('wc_wp_theme_get_element_class_name', 'button') }}" name="woocommerce_checkout_update_totals" value="{{ __('Update totals', 'woocommerce' )|e('html_attr') }}">{{ __( 'Update totals', 'woocommerce' )|e('esc_html') }}</button>
+			<br/><button type="submit" class="button alt{{ fn('wc_wp_theme_get_element_class_name', 'button')  ? ' ' ~ fn('wc_wp_theme_get_element_class_name', 'button') }}" name="woocommerce_checkout_update_totals" value="{{ __('Update totals', 'woocommerce' )|esc_attr }}">{{ __( 'Update totals', 'woocommerce' )|e('esc_html') }}</button>
 		</noscript>
 
 		{% do fn('wc_get_template', 'checkout/terms.php' ) %}
 
 		{% do action('woocommerce_review_order_before_submit' ) %}
 
-        {% set button = '<button type="submit" class="button alt%s" name="woocommerce_checkout_place_order" id="place_order" value="%s" data-value="%s">%s</button>'|format(fn('wc_wp_theme_get_element_class_name', 'button' ) ? ' ' ~ fn('wc_wp_theme_get_element_class_name', 'button' ) : '', wc.order_button_text|e('html_attr'), wc.order_button_text|e('html_attr'), wc.order_button_text|e('esc_html')) %}
+        {% set button = '<button type="submit" class="button alt%s" name="woocommerce_checkout_place_order" id="place_order" value="%s" data-value="%s">%s</button>'|format(fn('wc_wp_theme_get_element_class_name', 'button' ) ? ' ' ~ fn('wc_wp_theme_get_element_class_name', 'button' ) : '', wc.order_button_text|esc_attr, wc.order_button_text|esc_attr, wc.order_button_text|e('esc_html')) %}
 
 
 		{{ button|apply_filters( 'woocommerce_order_button_html') }}

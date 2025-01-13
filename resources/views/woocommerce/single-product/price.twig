@@ -16,4 +16,4 @@
 
 
 
-<p class="{{ 'price'|apply_filters('woocommerce_product_price_class', 'price')|e('html_attr') }}">{{ product.get_price_html() }}</p>
+<p class="{{ 'price'|apply_filters('woocommerce_product_price_class', 'price')|esc_attr }}">{{ product.get_price_html() }}</p>

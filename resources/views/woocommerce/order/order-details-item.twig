@@ -15,7 +15,7 @@
  #}
 
 {% if true|apply_filters( 'woocommerce_order_item_visible', true, wc.item ) %}
-    <tr class="{{ 'woocommerce-table__line-item order_item'|apply_filters( 'woocommerce_order_item_class', wc.item, wc.order )|e('html_attr') }}">
+    <tr class="{{ 'woocommerce-table__line-item order_item'|apply_filters( 'woocommerce_order_item_class', wc.item, wc.order )|esc_attr }}">
 
         <td class="woocommerce-table__product-name product-name">
             {% set is_visible        = wc.product and product.is_visible() %}

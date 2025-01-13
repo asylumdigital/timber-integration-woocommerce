@@ -15,9 +15,9 @@
  #}
 
 <form class="woocommerce-ordering" method="get">
-	<select name="orderby" class="orderby" aria-label="{{ __('Shop order', 'woocommerce' )|e('html_attr') }}">
+	<select name="orderby" class="orderby" aria-label="{{ __('Shop order', 'woocommerce' )|esc_attr }}">
 		{% for id,name in wc.catalog_orderby_options %}
-			<option value="{{ id|e('html_attr') }}" {% do fn('selected', wc.orderby, id ) %}>{{ name|e('esc_html') }}</option>
+			<option value="{{ id|esc_attr }}" {% do fn('selected', wc.orderby, id ) %}>{{ name|e('esc_html') }}</option>
 		{% endfor %}
 	</select>
 	<input type="hidden" name="paged" value="1" />

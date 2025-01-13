@@ -29,5 +29,5 @@
 	<link rel="stylesheet" href="{{ css|replace({'http:': '', 'https:': ''})|e('esc_url') }}" type="text/css" />
 </head>
 <body class="wc-auth wp-core-ui">
-	<h1 id="wc-logo"><img src="{{ logo|e('esc_url') }}" alt="{{ __( 'WooCommerce', 'woocommerce' )|e('html_attr') }}" /></h1>
+	<h1 id="wc-logo"><img src="{{ logo|e('esc_url') }}" alt="{{ __( 'WooCommerce', 'woocommerce' )|esc_attr }}" /></h1>
 	<div class="wc-auth-content">

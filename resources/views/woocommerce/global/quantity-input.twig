@@ -29,24 +29,24 @@
 	 # @since 7.2.0
 	 #}
 	{% do action('woocommerce_before_quantity_input_field') %}
-	<label class="screen-reader-text" for="{{ wc.input_id|e('html_attr') }}">{{ label|e('html_attr') }}</label>
+	<label class="screen-reader-text" for="{{ wc.input_id|esc_attr }}">{{ label|esc_attr }}</label>
 	<input
-		type="{{ wc.type|e('html_attr') }}"
+		type="{{ wc.type|esc_attr }}"
 		{{ wc.readonly ? 'readonly="readonly"' }}
 		id="{{ wc.input_id|e('esc_html') }}"
-		class="{{ wc.classes|join(' ')|e('html_attr') }}"
-		name="{{ wc.input_name|e('html_attr') }}"
-		value="{{ wc.input_value|e('html_attr') }}"
-        aria-label="{{ __('Product quantity', 'woocommerce')|e('html_attr') }}"
+		class="{{ wc.classes|join(' ')|esc_attr }}"
+		name="{{ wc.input_name|esc_attr }}"
+		value="{{ wc.input_value|esc_attr }}"
+        aria-label="{{ __('Product quantity', 'woocommerce')|esc_attr }}"
 		title="{{ _x( 'Qty', 'Product quantity input tooltip', 'woocommerce' ) }}"
 		{{ wc.type in ['text', 'search', 'tel', 'url', 'email', 'password'] ? 'size="4"' }}
-		min="{{ wc.min_value|e('html_attr') }}"
-		max="{{ 0 < wc.max_value ? wc.max_value|e('html_attr') }}"
+		min="{{ wc.min_value|esc_attr }}"
+		max="{{ 0 < wc.max_value ? wc.max_value|esc_attr }}"
 		{% if not wc.readonly %}
-			step="{{ wc.step|e('html_attr') }}"
-			placeholder="{{ wc.placeholder|e('html_attr') }}"
-			inputmode="{{ wc.inputmode|e('html_attr') }}"
-			autocomplete="{{ wc.autocomplete ? wc.autocomplete|e('html_attr') : 'on' }}"
+			step="{{ wc.step|esc_attr }}"
+			placeholder="{{ wc.placeholder|esc_attr }}"
+			inputmode="{{ wc.inputmode|esc_attr }}"
+			autocomplete="{{ wc.autocomplete ? wc.autocomplete|esc_attr : 'on' }}"
 		{% endif %}
 	/>
 	{#

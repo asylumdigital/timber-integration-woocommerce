@@ -23,7 +23,7 @@
 		<thead>
 			<tr>
 				{% for column_id,column_name in fn('wc_get_account_downloads_columns') %}
-				    <th class="{{ column_id|e('html_attr') }}"><span class="nobr">{{ column_name|e('esc_html') }}</span></th>
+				    <th class="{{ column_id|esc_attr }}"><span class="nobr">{{ column_name|e('esc_html') }}</span></th>
 				{% endfor %}
 			</tr>
 		</thead>
@@ -31,7 +31,7 @@
 		{% for download in wc.downloads %}
 			<tr>
                 {% for column_id,column_name in fn('wc_get_account_downloads_columns') %}
-					<td class="{{ column_id|e('html_attr') }}" data-title="{{ column_name|e('esc_html') }}">
+					<td class="{{ column_id|esc_attr }}" data-title="{{ column_name|e('esc_html') }}">
 						{% if fn('has_action', 'woocommerce_account_downloads_column_' . column_id ) %}
 							{% do action( 'woocommerce_account_downloads_column_' . column_id, download ) %}
 						{% else %}
@@ -49,7 +49,7 @@
                             {% elseif 'download-expires' == column_id %}
                                 {% if download.access_expires is not empty %}
 
-                                    <time datetime="{{ download.access_expires|date('Y-m-d')|e('html_attr') }}" title="{{ download.access_expires }}"> {{ fn('date_i18n', fn('get_option', 'date_format' ), fn('strtotime', download.access_expires ) ) }}</time>
+                                    <time datetime="{{ download.access_expires|date('Y-m-d')|esc_attr }}" title="{{ download.access_expires }}"> {{ fn('date_i18n', fn('get_option', 'date_format' ), fn('strtotime', download.access_expires ) ) }}</time>
                                 {% else %}
                                     {{ __( 'Never', 'woocommerce' )|e('esc_html') }}
                                 {% endif %}

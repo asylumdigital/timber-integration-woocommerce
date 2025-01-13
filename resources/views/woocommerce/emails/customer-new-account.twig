@@ -23,7 +23,7 @@
 <p>{{ __( 'Thanks for creating an account on %1$s. Your username is %2$s. You can access your account area to view orders, change your password, and more at: %3$s', 'woocommerce' )|e|format(wc.blogname|e, '<strong>' ~ wc.user_login|e ~ '</strong>', fn('make_clickable', fn('wc_get_page_permalink', 'myaccount' )|e('esc_url') ) ) }}</p>
 {% if 'yes' == fn('get_option', 'woocommerce_registration_generate_password' ) and wc.password_generated and wc.set_password_url %}
 	{# If the password has not been set by the user during the sign up process, send them a link to set a new password #}
-	<p><a href="{{ wc.set_password_url|e('html_attr') }}">{{ __( 'Click here to set your new password.', 'woocommerce' ) }}</a></p>
+	<p><a href="{{ wc.set_password_url|esc_attr }}">{{ __( 'Click here to set your new password.', 'woocommerce' ) }}</a></p>
 {% endif %}
 
 {##

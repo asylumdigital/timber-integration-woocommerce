@@ -19,7 +19,7 @@
 {% if wc.product_attributes %}
     <table class="woocommerce-product-attributes shop_attributes" aria-label="{{ __('Product Details', 'woocommerce')|esc_attr }}">
         {% for product_attribute_key,product_attribute in wc.product_attributes %}
-            <tr class="woocommerce-product-attributes-item woocommerce-product-attributes-item--{{ product_attribute_key|e('html_attr') }}">
+            <tr class="woocommerce-product-attributes-item woocommerce-product-attributes-item--{{ product_attribute_key|esc_attr }}">
                 <th class="woocommerce-product-attributes-item__label" scope="row">{{ product_attribute.label|e('wp_kses_post') }}</th>
                 <td class="woocommerce-product-attributes-item__value">{{ product_attribute.value|e('wp_kses_post') }}</td>
             </tr>
