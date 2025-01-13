@@ -3,7 +3,7 @@
  #
  # Shows text: Showing x - x of x results.
  #
- # This template can be overridden by copying it to yourtheme/woocommerce/loop/result-count.php.
+ # This template can be overridden by copying it to yourtheme/woocommerce/loop/result-count.twig.
  #
  # HOWEVER, on occasion WooCommerce will need to update template files and you
  # (the theme developer) will need to copy the new files to your theme to
@@ -11,22 +11,26 @@
  # happen. When this occurs the version of the template file will be bumped and
  # the readme will list any important changes.
  #
- # @see         https://docs.woocommerce.com/document/template-structure/
+ # @see         https://woocommerce.com/document/template-structure/
  # @package     WooCommerce\Templates
- # @version     3.7.0
+ # @version     9.4.0
  #}
 
-<p class="woocommerce-result-count">
+<p class="woocommerce-result-count" {{ wc.orderedby is empty or 1 == wc.total|abs ? '' : 'role="alert" aria-relevant="all" data-is-sorted-by="true"' }}>
 	{% if 1 == wc.total %}
 		{{ __( 'Showing the single result', 'woocommerce' )|e('esc_html') }}
 	{% elseif wc.total <= wc.per_page or -1 == wc.per_page %}
+        {% set orderedby_placeholder = wc.orderedby is empty ? '%2$s' : '<span class="screen-reader-text">%2$s</span>' %}
 		{# translators: %d: total results #}
-		{{ _n('Showing all %d result', 'Showing all %d results', wc.total, 'woocommerce' )|format(wc.total) }}
+        {% set results_text = _n('Showing all %d result', 'Showing all %d results', wc.total, 'woocommerce' ) ~ orderedby_placeholder %}
+		{{ results_text|format(wc.total, wc.orderedby) }}
 	{% else %}
 
 		{% set first = (wc.per_page * wc.current ) - wc.per_page + 1 %}
 		{% set last  = min( wc.total, wc.per_page * wc.current ) %}
+        {% set orderedby_placeholder = wc.orderedby is empty ? '%4$s' : '<span class="screen-reader-text">%4$s</span>' %}
 		{# translators: 1: first result 2: last result 3: total results  #}
-		{{ _nx( 'Showing %1$d&ndash;%2$d of %3$d result', 'Showing %1$d&ndash;%2$d of %3$d results', wc.total, 'with first and last result', 'woocommerce' )|format( first, last, wc.total ) }}
+        {% set results_text = _nx( 'Showing %1$d&ndash;%2$d of %3$d result', 'Showing %1$d&ndash;%2$d of %3$d results', wc.total, 'with first and last result', 'woocommerce') ~ orderedby_placeholder %}
+		{{ results_text|format(first, last, wc.total, wc.orderedby|e('html_attr')) }}
 	{% endif %}
 </p>

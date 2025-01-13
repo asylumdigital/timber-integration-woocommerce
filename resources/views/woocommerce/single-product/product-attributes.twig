@@ -3,7 +3,7 @@
  #
  # Used by list_attributes() in the products class.
  #
- # This template can be overridden by copying it to yourtheme/woocommerce/single-product/product-attributes.php.
+ # This template can be overridden by copying it to yourtheme/woocommerce/single-product/product-attributes.twig.
  #
  # HOWEVER, on occasion WooCommerce will need to update template files and you
  # (the theme developer) will need to copy the new files to your theme to
@@ -11,16 +11,16 @@
  # happen. When this occurs the version of the template file will be bumped and
  # the readme will list any important changes.
  #
- # @see https://docs.woocommerce.com/document/template-structure/
+ # @see https://woocommerce.com/document/template-structure/
  # @package WooCommerce\Templates
- # @version 3.6.0
+ # @version 9.3.0
  #}
 
 {% if wc.product_attributes %}
-    <table class="woocommerce-product-attributes shop_attributes">
+    <table class="woocommerce-product-attributes shop_attributes" aria-label="{{ __('Product Details', 'woocommerce')|esc_attr }}">
         {% for product_attribute_key,product_attribute in wc.product_attributes %}
             <tr class="woocommerce-product-attributes-item woocommerce-product-attributes-item--{{ product_attribute_key|e('html_attr') }}">
-                <th class="woocommerce-product-attributes-item__label">{{ product_attribute.label|e('wp_kses_post') }}</th>
+                <th class="woocommerce-product-attributes-item__label" scope="row">{{ product_attribute.label|e('wp_kses_post') }}</th>
                 <td class="woocommerce-product-attributes-item__value">{{ product_attribute.value|e('wp_kses_post') }}</td>
             </tr>
         {% endfor %}

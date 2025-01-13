@@ -1,7 +1,7 @@
 {##
  # Variable product add to cart
  #
- # This template can be overridden by copying it to yourtheme/woocommerce/single-product/add-to-cart/variable.php.
+ # This template can be overridden by copying it to yourtheme/woocommerce/single-product/add-to-cart/variable.twig.
  #
  # HOWEVER, on occasion WooCommerce will need to update template files and you
  # (the theme developer) will need to copy the new files to your theme to
@@ -9,9 +9,9 @@
  # happen. When this occurs the version of the template file will be bumped and
  # the readme will list any important changes.
  #
- # @see https://docs.woocommerce.com/document/template-structure/
+ # @see https://woocommerce.com/document/template-structure/
  # @package WooCommerce\Templates
- # @version 6.1.0
+ # @version 9.5.0
  #}
 
 
@@ -28,7 +28,7 @@
 		<p class="stock out-of-stock">{{ __( 'This product is currently out of stock and unavailable.', 'woocommerce' )|apply_filters( 'woocommerce_out_of_stock_message')|e('esc_html') }}</p>
 	{% else %}
 
-		<table class="variations" cellspacing="0" role="presentation">
+		<table class="variations" role="presentation">
 			<tbody>
 				{% for attribute_name,options in wc.attributes %}
 					<tr>
@@ -44,13 +44,16 @@
                                 )
                             }}
 
-                            {{ attribute_keys|last == attribute_name ? '<a class="reset_variations" href="#">' ~ __( 'Clear', 'woocommerce' )|e('esc_html') ~ '</a>'|apply_filters('woocommerce_reset_variations_link') }}
+
+                            {{ attribute_keys|last == attribute_name ? '<button class="reset_variations" aria-label="%s">%s</button>'|format(__('Clear options', 'woocommerce')|e('esc_html'), __('Clear', 'woocommerce')|e('esc_html'))|apply_filters( 'woocommerce_reset_variations_link')|wp_kses_post }}
+
 
 						</td>
 					</tr>
 				{% endfor %}
 			</tbody>
 		</table>
+        <div class="reset_variations_alert screen-reader-text" role="alert" aria-live="polite" aria-relevant="all"></div>
 		{% do action( 'woocommerce_after_variations_table' ) %}
 
 		<div class="single_variation_wrap">

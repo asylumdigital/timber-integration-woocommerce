@@ -1,7 +1,7 @@
 {##
  # Shipping Calculator
  #
- # This template can be overridden by copying it to yourtheme/woocommerce/cart/shipping-calculator.php.
+ # This template can be overridden by copying it to yourtheme/woocommerce/cart/shipping-calculator.twig.
  #
  # HOWEVER, on occasion WooCommerce will need to update template files and you
  # (the theme developer) will need to copy the new files to your theme to
@@ -9,9 +9,9 @@
  # happen. When this occurs the version of the template file will be bumped and
  # the readme will list any important changes.
  #
- # @see     https://docs.woocommerce.com/document/template-structure/
+ # @see     https://woocommerce.com/document/template-structure/
  # @package WooCommerce\Templates
- # @version 7.0.1
+ # @version 9.5.0
  #}
 
 {# defined( 'ABSPATH' ) || exit; #}
@@ -19,9 +19,9 @@
 {% do action( 'woocommerce_before_shipping_calculator' ) %}
 <form class="woocommerce-shipping-calculator" action="{{ fn('wc_get_cart_url')|e('esc_url') }}" method="post">
 
-    {{ '<a href="#" class="shipping-calculator-button">%s</a>'|format(wc.button_text|default(__( 'Calculate shipping', 'woocommerce' ))|e('esc_html')) }}
+    {{ '<a href="#" class="shipping-calculator-button" aria-expanded="false" aria-controls="shipping-calculator-form" role="button">%s</a>'|format(wc.button_text|default(__( 'Calculate shipping', 'woocommerce' ))|e('esc_html')) }}
 
-	<section class="shipping-calculator-form" style="display:none;">
+	<section class="shipping-calculator-form" id="shipping-calculator-form" style="display:none;">
 
 		{% if true|apply_filters( 'woocommerce_shipping_calculator_enable_country') %}
 			<p class="form-row form-row-wide" id="calc_shipping_country_field">

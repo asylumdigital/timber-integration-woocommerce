@@ -1,7 +1,7 @@
 {##
  # Order again button
  #
- # This template can be overridden by copying it to yourtheme/woocommerce/order/order-again.php.
+ # This template can be overridden by copying it to yourtheme/woocommerce/order/order-again.twig.
  #
  # HOWEVER, on occasion WooCommerce will need to update template files and you
  # (the theme developer) will need to copy the new files to your theme to
@@ -9,11 +9,11 @@
  # happen. When this occurs the version of the template file will be bumped and
  # the readme will list any important changes.
  #
- # @see https://docs.woocommerce.com/document/template-structure/
+ # @see https://woocommerce.com/document/template-structure/
  # @package WooCommerce\Templates
- # @version 3.5.0
+ # @version 7.8.0
  #}
 
 <p class="order-again">
-	<a href="{{ wc.order_again_url|e('esc_url') }}" class="button">{{ __( 'Order again', 'woocommerce' )|e('esc_html') }}</a>
+	<a href="{{ wc.order_again_url|e('esc_url') }}" class="button {{ wc.wp_button_class|e('html_attr') }}">{{ __( 'Order again', 'woocommerce' )|e('esc_html') }}</a>
 </p>

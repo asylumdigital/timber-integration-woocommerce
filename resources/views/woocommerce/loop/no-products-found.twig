@@ -1,7 +1,7 @@
 {##
  # Displayed when no products are found matching the current query
  #
- # This template can be overridden by copying it to yourtheme/woocommerce/loop/no-products-found.php.
+ # This template can be overridden by copying it to yourtheme/woocommerce/loop/no-products-found.twig.
  #
  # HOWEVER, on occasion WooCommerce will need to update template files and you
  # (the theme developer) will need to copy the new files to your theme to
@@ -9,9 +9,12 @@
  # happen. When this occurs the version of the template file will be bumped and
  # the readme will list any important changes.
  #
- # @see https://docs.woocommerce.com/document/template-structure/
+ # @see https://woocommerce.com/document/template-structure/
  # @package WooCommerce\Templates
- # @version 2.0.0
+ # @version 7.8.0
  #}
 
-<p class="woocommerce-info woocommerce-no-products-found">{{ __( 'No products were found matching your selection.', 'woocommerce' )|e('esc_html') }}</p>
+
+<div class="woocommerce-no-products-found">
+	{% do fn('wc_print_notice', __( 'No products were found matching your selection.', 'woocommerce' )|e, 'notice') %}
+</div>

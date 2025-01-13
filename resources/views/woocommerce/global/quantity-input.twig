@@ -1,7 +1,7 @@
 {##
  # Product quantity inputs
  #
- # This template can be overridden by copying it to yourtheme/woocommerce/global/quantity-input.php.
+ # This template can be overridden by copying it to yourtheme/woocommerce/global/quantity-input.twig.
  #
  # HOWEVER, on occasion WooCommerce will need to update template files and you
  # (the theme developer) will need to copy the new files to your theme to
@@ -9,9 +9,9 @@
  # happen. When this occurs the version of the template file will be bumped and
  # the readme will list any important changes.
  #
- # @see     https://docs.woocommerce.com/document/template-structure/
+ # @see     https://woocommerce.com/document/template-structure/
  # @package WooCommerce\Templates
- # @version 7.4.0
+ # @version 9.4.0
  #
  # @var bool   $readonly If the input should be set to readonly mode.
  # @var string $type     The input type attribute.
@@ -37,8 +37,9 @@
 		class="{{ wc.classes|join(' ')|e('html_attr') }}"
 		name="{{ wc.input_name|e('html_attr') }}"
 		value="{{ wc.input_value|e('html_attr') }}"
+        aria-label="{{ __('Product quantity', 'woocommerce')|e('html_attr') }}"
 		title="{{ _x( 'Qty', 'Product quantity input tooltip', 'woocommerce' ) }}"
-		size="4"
+		{{ wc.type in ['text', 'search', 'tel', 'url', 'email', 'password'] ? 'size="4"' }}
 		min="{{ wc.min_value|e('html_attr') }}"
 		max="{{ 0 < wc.max_value ? wc.max_value|e('html_attr') }}"
 		{% if not wc.readonly %}
