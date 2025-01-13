@@ -35,25 +35,25 @@
 						{% if fn('has_action', 'woocommerce_account_downloads_column_' . column_id ) %}
 							{% do action( 'woocommerce_account_downloads_column_' . column_id, download ) %}
 						{% else %}
-							{% switch column_id %}
-								{% case 'download-product' %}
-									{% if download.product_url %}
-									    <a href="{{ download.product_url|e('esc_url') }}">{{ download.product_name|e('esc_html') }}</a>
-									{% else %}
-										{{ download.product_name|e('esc_html') }}
-									{% endif %}
-								{% case 'download-file' %}
-									<a href="{{ download.download_url|e('esc_url') }}" class="woocommerce-MyAccount-downloads-file button alt">{{ download.download_name|e('esc_html') }}</a>
-								{% case 'download-remaining' %}
-									{{ download.downloads_remaining is numeric ? download.downloads_remaining|e('esc_html') : __( '&infin;', 'woocommerce' )|e('esc_html') }}
-								{% case 'download-expires' %}
-									{% if download.access_expires is not empty %}
 
-										<time datetime="{{ download.access_expires|date('Y-m-d')|e('html_attr') }}" title="{{ download.access_expires }}"> {{ fn('date_i18n', fn('get_option', 'date_format' ), fn('strtotime', download.access_expires ) ) }}</time>
-									{% else %}
-										{{ __( 'Never', 'woocommerce' )|e('esc_html') }}
-									{% endif %}
-							{% endswitch %}
+                            {% if 'download-product' == column_id %}
+                                {% if download.product_url %}
+                                    <a href="{{ download.product_url|e('esc_url') }}">{{ download.product_name|e('esc_html') }}</a>
+                                {% else %}
+                                    {{ download.product_name|e('esc_html') }}
+                                {% endif %}
+                            {% elseif 'download-file' == column_id %}
+                                <a href="{{ download.download_url|e('esc_url') }}" class="woocommerce-MyAccount-downloads-file button alt">{{ download.download_name|e('esc_html') }}</a>
+                            {% elseif 'download-remaining' == column_id %}
+                                {{ download.downloads_remaining ? download.downloads_remaining|e('esc_html') : __( '&infin;', 'woocommerce' )|e('esc_html') }} {# is numeric #}
+                            {% elseif 'download-expires' == column_id %}
+                                {% if download.access_expires is not empty %}
+
+                                    <time datetime="{{ download.access_expires|date('Y-m-d')|e('html_attr') }}" title="{{ download.access_expires }}"> {{ fn('date_i18n', fn('get_option', 'date_format' ), fn('strtotime', download.access_expires ) ) }}</time>
+                                {% else %}
+                                    {{ __( 'Never', 'woocommerce' )|e('esc_html') }}
+                                {% endif %}
+                            {% endif %}
 						{% endif %}
 					</td>
 				{% endfor %}
