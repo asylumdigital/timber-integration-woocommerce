@@ -13,6 +13,10 @@ class Woocommerce
 
     public function __construct()
     {
+        if (WC()->is_rest_api_request() && $_SERVER['REQUEST_URI'] === '/wp-json/wc/v3/system_status') {
+            return;
+        }
+
         // shows templates in woocommerce status as twig
         add_filter('wc_get_template', function ($file, $file2, $arr, $path, $pluginPath) {
             if (is_admin() && ($_REQUEST['page'] ?? false) === 'wc-status') {
