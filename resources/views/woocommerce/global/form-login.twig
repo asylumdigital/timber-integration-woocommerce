@@ -19,7 +19,7 @@
 
         {% do action( 'woocommerce_login_form_start' ) %}
 
-        {{ wc.message ? message|wptexturize|wpautop }}
+        {{ wc.message ? wc.message|wptexturize|wpautop }}
 
         <p class="form-row form-row-first">
             <label for="username">{{ __( 'Username or email', 'woocommerce' )|e('esc_html') }}&nbsp;<span class="required" aria-hidden="true">*</span><span class="screen-reader-text">{{ __( 'Required', 'woocommerce' )|e('esc_html') }}</span></label>
